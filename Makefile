@@ -10,8 +10,8 @@
 NAME	:= cub3D
 CC		:= gcc
 FLAGS	:= -Wall -Wextra -Werror 
-HEADERS	:= -I libft/includes -I MLX42/include/MLX42 -lglfw \
-		 -L /Users/darismen/.brew/opt/glfw/lib/ -ldl -lglfw(3) -pthread -lm
+HEADERS	:= -I./include/ -I MLX42/include/MLX42 -lglfw \
+		   -ldl -lglfw -pthread -lm -Llibft/ -lft
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
@@ -21,7 +21,7 @@ SRCS 	:= src/main.c \
 OBJS 	:= $(SRCS:.c=.o)
 
 .c.o:
-	${CC} ${FLAGS} -c $< -o ${<:.c=.o}
+	${CC} ${FLAGS} ${HEADERS} -c $< -o ${<:.c=.o}
 
 ################################################################################
 #                                  Makefile  objs                              #
@@ -36,10 +36,13 @@ BLUE		:= \033[1;34m
 CYAN 		:= \033[1;36m
 RM 			:= rm -f
 
-${NAME}:	${OBJS}
+${NAME}:	${OBJS} ${LIBFT}
 			@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
-			${CC} ${FLAGS} -o ${NAME} ${OBJS}
+			${CC} ${HEADERS} ${FLAGS} -o ${NAME} ${OBJS}
 			@echo "$(GREEN)$(NAME) created ${CLR_RMV}✔️"
+
+${LIBFT}:
+	@$(MAKE) -C $(LIBFT)
 
 all:		${NAME}
 

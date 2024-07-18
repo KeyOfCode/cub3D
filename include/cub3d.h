@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ezhou <ezhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:10:57 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/15 12:24:02 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/18 17:26:10 by ezhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_game
 	int					nc;
 	int					nm;
 	t_player			*player;
+	t_ray				ray;
 }	t_game;
 
 typedef enum move
@@ -98,6 +99,24 @@ typedef enum move
 	Y,
 	xy
 }	t_move;
+
+
+typedef struct s_ray
+{
+	double	camera_x;
+	t_vec2d dir;
+	t_vec2d map;
+	t_vec2d step;
+	t_vec2d sidedist;
+	t_vec2d deltadist;
+	double	wall_dist;
+	double	wall_x;
+	int		side;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+}	t_ray;
+
 
 void	hooks(mlx_key_data_t keydata, void *param);
 

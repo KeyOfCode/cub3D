@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: ezhou <ezhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 10:19:18 by darismen          #+#    #+#             */
-/*   Updated: 2022/09/22 11:23:57 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/18 11:59:45 by ezhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *str, const char *sub, size_t len)
+/* char	*ft_strnstr(const char *str, const char *sub, size_t len)
 {
 	size_t	h;
 	size_t	n;
@@ -39,4 +39,4 @@ char	*ft_strnstr(const char *str, const char *sub, size_t len)
 		h++;
 	}
 	return (0);
-}
+} */
