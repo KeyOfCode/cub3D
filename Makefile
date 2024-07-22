@@ -10,13 +10,15 @@
 NAME	:= cub3D
 CC		:= gcc
 FLAGS	:= -Wall -Wextra -Werror 
-HEADERS	:= -I./include/ -I MLX42/include/MLX42 -lglfw \
-		   -ldl -lglfw -pthread -lm -Llibft/ -lft
+HEADERS	:= -I./include/ -I $(LIBMLX)/include
+LIBMLX  := ./MLX42
+MLX		:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
 
 SRCS 	:= src/main.c \
+		   src/init.c \
 						  
 OBJS 	:= $(SRCS:.c=.o)
 
@@ -36,10 +38,13 @@ BLUE		:= \033[1;34m
 CYAN 		:= \033[1;36m
 RM 			:= rm -f
 
-${NAME}:	${OBJS} ${LIBFT}
+${NAME}:	${OBJS} ${LIBFT} ${MLX}
 			@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
-			${CC} ${HEADERS} ${FLAGS} -o ${NAME} ${OBJS}
+			${CC} ${HEADERS} ${FLAGS} -o ${NAME} ${OBJS} ${MLX} -Llibft/ -lft
 			@echo "$(GREEN)$(NAME) created ${CLR_RMV}✔️"
+
+${MLX}:
+	cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 ${LIBFT}:
 	@$(MAKE) -C $(LIBFT)

@@ -44,25 +44,7 @@ static void ft_set_step_directions(t_ray *ray, t_player *player)
 	}
 }
 
-      while(hit == 0)
-      {
-        //jump to next map square, either in x-direction, or in y-direction
-        if(sideDistX < sideDistY)
-        {
-          sideDistX += deltaDistX;
-          mapX += stepX;
-          side = 0;
-        }
-        else
-        {
-          sideDistY += deltaDistY;
-          mapY += stepY;
-          side = 1;
-        }
-        //Check if ray has hit a wall
-        if(worldMap[mapX][mapY] > 0) hit = 1;
-      }
-
+/*ray->map x e y son doubles, map son células del mapa, deberían ser solo ints. Comprobar si falla cambiar eso.*/
 static void	ft_dda(t_game *game, t_ray *ray)
 {
 	int	hit;
@@ -82,9 +64,29 @@ static void	ft_dda(t_game *game, t_ray *ray)
 			ray->map.y += ray->step.y;
 			ray->side = 1;
 		}
-		else if (data->map[ray->map.y][ray->map.x] > '0')
+		if (game->map[(int)ray->map.y][(int)ray->map.x] > '0')
 			hit = 1;
 	}
+}
+
+static void ft_calculate_line_height(t_ray *ray, t_player *player, t_game *game)
+{
+	if (ray->side)
+		ray->wall_dist = (ray->sidedist.y - ray->deltadist.y);
+	else
+		ray->wall_dist = (ray->sidedist.x - ray->deltadist.x);
+	ray->line_height = (int)(WIN_HEIGHT/ ray->wall_dist);
+	ray->draw_start = -((ray->line_height) / 2) + (WIN_HEIGHT / 2);
+	if (ray->draw_start < 0)
+		ray->draw_start = 0;
+	ray->draw_end = ray->line_height / 2 + WIN_HEIGHT / 2;
+	if (ray->draw_end >= WIN_HEIGHT)
+		ray->draw_end = WIN_HEIGHT - 1;
+	if (ray->side == 0)
+		ray->wall_x = player->pos.y + ray->wall_dist * ray->dir.y;
+	else
+		ray->wall_x = player->pos.x + ray->wall_dist * ray->dir.x;
+	ray->wall_x -= floor(ray->wall_x);
 }
 
 int ft_raycast(t_game *game)
@@ -98,7 +100,9 @@ int ft_raycast(t_game *game)
 	{
 		ft_init_ray(&ray, game->player, x);
 		ft_set_step_directions(&ray, game->player);
-		ft_dda()
+		ft_dda(game, &ray);
+		ft_calculate_line_height(&ray, game->player, game);
+		ft_draw_pixels(&ray, game->player, game);
 		x++;
 	}
 }

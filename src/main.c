@@ -6,7 +6,7 @@
 /*   By: ezhou <ezhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 10:15:50 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/18 12:06:37 by ezhou            ###   ########.fr       */
+/*   Updated: 2024/07/22 13:54:56 by ezhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,22 @@ void	ft_error(int type)
 	exit(EXIT_SUCCESS);
 }
 
-void	game_loop(void *param)
+/* void	game_loop(void *param)
 {
 	t_game		*game;
 
 	game = param;
-}
+} */
 
 int	main(int argc, char **argv)
 {
+	(void)argc;
+	(void)argv;
 	t_game	*game;
 
 	game = (t_game *)malloc(sizeof(t_game));
 	init_game(argv, game);
-	init_map(argc, argv, game);
+/* 	init_map(argc, argv, game);
 	resize_map(game);
 	init_sprites(game);
 	init_player(game);
@@ -54,6 +56,6 @@ int	main(int argc, char **argv)
 	draw_player(game);
 	hook_register(game);
 	mlx_loop_hook(game->mlx, game_loop, game);
-	mlx_loop(game->mlx);
+	mlx_loop(game->mlx); */
 	exit(EXIT_SUCCESS);
 }
