@@ -6,7 +6,7 @@
 /*   By: ezhou <ezhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 10:05:13 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/18 11:58:54 by ezhou            ###   ########.fr       */
+/*   Updated: 2024/07/22 16:46:11 by ezhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 	if (!dest && !src)
 		return (0);
 	n = 0;
-	if ((unsigned int)dest - (unsigned int)src < len)
+	if ((unsigned int *)dest - (unsigned int *)src < len)
 	{
 		n = len - 1;
 		while (n < len)

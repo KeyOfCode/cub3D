@@ -1,0 +1,11 @@
+.vscode
+.DS_Store
+*.o
+*.d
+*.a
+*.sw*
+a.out
+*.dSYM
+/bonus
+test.c
+*-workspace
