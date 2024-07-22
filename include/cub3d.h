@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:10:57 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/15 12:24:02 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/22 13:31:15 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,62 @@
 # include <signal.h>
 # include <sys/stat.h>
 # include <sys/time.h>
+# include <features.h>
+# define __USE_MISC 1
 # include <math.h>
 
 # include "vector.h"
 
-# define WIDTH 1280
-# define HEIGHT 720
+# define WIDTH 		1280
+# define HEIGHT 	720
+# define FOV		60
+# define ROT_SPD	0.045
+# define SPEED		10.0
+# define LERP		0.2
+
+# define BPX 64
+
+typedef enum move
+{
+	X,
+	Y,
+	xy
+}	t_move;
 
 typedef enum s_sprites
 {
 	SPRITES,
-	PLAYER = 1,
-	GATE,
-	COIN,
-	OTHER,
+	NO = 1,
+	SO,
+	EA,
+	WE,
+	FLOOR,
+	CEIL,
 	IMG_COUNT
 }	t_sprites;
 
-/// @brief Structure for the player
-/**
+typedef enum dirs
+{
+	DOWN,
+	RIGHT,
+	UP,
+	LEFT
+}	t_dirs;
+
+/** @brief Structure for texture list
+ * 
+ */
+typedef struct s_texture
+{
+	char				*name;
+	char				*path;
+	char				symbol;
+	int					size;
+	mlx_texture_t		**sprites;
+	struct s_texture	*next;
+}	t_texture;
+
+/** @brief Structure for the player
  * @param pos : position relative to the map.
  * @param direction : (0 left, 1 right)
 */
@@ -51,7 +88,8 @@ typedef struct s_player
 	t_vec3d		cam;
 	double		yaw;
 	double		pitch;
-	int			hp;
+	t_vec3d		speed;
+	double		rot_spd;
 }	t_player;
 
 /// @brief Struct that contains all the data of the game
@@ -78,38 +116,43 @@ typedef struct s_game
 {
 	mlx_t				*mlx;
 	mlx_image_t			*img[IMG_COUNT];
-	int					gw;
-	int					gh;
+	int					*texture_buf[IMG_COUNT];
+	int					max_width;
+	int					g_height;
 	int					fd;
 	int					map_fd;
 	t_list				*lst_map;
 	char				**map;
-	mlx_texture_t		*ps[4];
-	mlx_texture_t		*gs[2];
-	mlx_texture_t		*os[4];
-	int					nc;
-	int					nm;
+	int					nb_textures;
+	t_texture			*textures;
 	t_player			*player;
+	int					ply_pos[2];
 }	t_game;
 
-typedef enum move
-{
-	X,
-	Y,
-	xy
-}	t_move;
+
+
+// typedef enum s_others
+// {
+// 	bg1,
+// 	bg2,
+// 	wall1,
+// 	wall2
+// }	t_others;
 
 void	hooks(mlx_key_data_t keydata, void *param);
 
-void	ft_error(int type);
+void	ft_cub_error(int type);
 
 /* Init */
 
-void	init_game(char **argv, t_game *game);
+void	init_game(t_game *game);
 int		init_map(int argc, char *argv[], t_game *game);
-int		init_player(t_game *game);
+void	init_player(t_player *player);
 void	init_sprites(t_game *game);
 int		find_player_pos(t_game *game);
+
+/*  */
+char	*path_to_sprite(char *sprite_name, int nb);
 
 /* Draw */
 
@@ -130,23 +173,26 @@ void	exit_game(t_game *game);
 int		open_map(char *relative_path, t_game *game);
 int		fill_lst(t_game *game);
 int		convert_lst(t_game *game);
-int		size_check(t_game *game);
+int		is_enclosed(t_game *game);
 int		allowed_char(t_game *game);
 int		sides_is_wall(t_game *game);
 int		required_char(t_game *game);
 int		path_to_exit(t_game *game);
 
 /* Player */
-int		movement(t_game *game, int *pos, char dir);
-void	movecounter(t_game *game);
-int		collision(t_game *game, int pos[2], char dir);
-void	coin_collision(t_game *game, int pos[2]);
-void	gate_collision(t_game *game, int *pos);
+int		movement(t_game *game, t_player *player, int sign, char cross);
+void	rotation(t_player *player, int dir);
+void	ft_player_init_pos(t_player *player, char dir,
+			int x, int y);
+// void	collision(t_game *game, t_player *player);
 
 /* Utils */
-void	fps(t_game *game);
+// void	fps(t_game *game);
 void	resize_map(t_game *game);
 int		ft_2darr_len(void **arr);
 void	ft_2darrfree(void **arr);
+float	to_rad(float degree);
+float	lerp(float a, float b, float f);
+void	skip_spaces(char *str, int *i);
 
 #endif

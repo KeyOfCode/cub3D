@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 10:21:29 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/15 10:22:13 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/19 10:59:03 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,12 @@
 	while (i < 2)
 		mlx_delete_texture(game->gs[i++]);
 	i = 0;
-	if (game->nc != 0)
-		mlx_delete_image(game->mlx, game->img[COIN]);
+	// if (game->nc != 0)
+	// 	mlx_delete_image(game->mlx, game->img[COIN]);
 	while (i < IMG_COUNT)
 		if (game->img[i])
 			mlx_delete_image(game->mlx, game->img[i++]);
 } */
-
 
 void	exit_game(t_game *game)
 {
@@ -48,7 +47,7 @@ void	exit_game(t_game *game)
 	exit(EXIT_SUCCESS);
 }
 
-void	hooks(mlx_key_data_t keydata, void *param)
+/* void	so_long_hooks(mlx_key_data_t keydata, void *param)
 {
 	t_game	*game;
 	int		pressed;
@@ -58,17 +57,44 @@ void	hooks(mlx_key_data_t keydata, void *param)
 	if (keydata.key == (MLX_KEY_ESCAPE))
 		exit_game(game);
 	if (keydata.key == MLX_KEY_D && pressed)
-		if (movement(game, game->player->pos, 'D'))
-			movecounter(game);
+		movement(game, game->player, 'D');
 	if (keydata.key == MLX_KEY_A && pressed)
-		if (movement(game, game->player->pos, 'A'))
-			movecounter(game);
+		movement(game, game->player, 'A');
 	if (keydata.key == MLX_KEY_S && pressed)
-		if (movement(game, game->player->pos, 'S'))
-			movecounter(game);
+		movement(game, game->player, 'S');
 	if (keydata.key == MLX_KEY_W && pressed)
-		if (movement(game, game->player->pos, 'W'))
-			movecounter(game);
+		movement(game, game->player, 'W');
+} */
+
+void	stop_player(t_player *playyer)
+{
+	playyer->speed.x = 0;
+	playyer->speed.y = 0;
+}
+
+void	hooks(mlx_key_data_t keydata, void *param)
+{
+	t_game	*game;
+	int		pressed;
+
+	game = param;
+	pressed = (keydata.action != MLX_RELEASE);
+	if (keydata.key == (MLX_KEY_ESCAPE))
+		exit_game(game);
+	if (keydata.key == MLX_KEY_RIGHT && pressed)
+		rotation(game->player, 1);
+	if (keydata.key == MLX_KEY_LEFT && pressed)
+		rotation(game->player, -1);
+	if (keydata.key == MLX_KEY_W && pressed)
+		movement(game, game->player, 1, 'W');
+	if (keydata.key == MLX_KEY_S && pressed)
+		movement(game, game->player, -1, 'S');
+	if (keydata.key == MLX_KEY_D && pressed)
+		movement(game, game->player, 1, 'D');
+	if (keydata.key == MLX_KEY_A && pressed)
+		movement(game, game->player, -1, 'A');
+	if (!pressed)
+		stop_player(game->player);
 }
 
 void	hook_register(t_game *game)

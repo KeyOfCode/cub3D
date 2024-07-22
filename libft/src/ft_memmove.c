@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 10:05:13 by darismen          #+#    #+#             */
-/*   Updated: 2022/09/21 13:21:41 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/17 13:57:05 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*ft_memmove(void *dest, const void *src, unsigned int len)
 	if (!dest && !src)
 		return (0);
 	n = 0;
-	if ((unsigned int)dest - (unsigned int)src < len)
+	if ((unsigned int *)dest - (unsigned int *)src < len)
 	{
 		n = len - 1;
 		while (n < len)
