@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 09:53:40 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/22 13:19:49 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:18:37 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,16 @@ void	init_game(t_game *game)
 {
 	game->mlx = mlx_init(WIDTH, HEIGHT, "cub3D", true);
 	if (!game->mlx)
-		ft_error(5);
+		ft_cub_error(5);
 	game->max_width = -1;
 	game->g_height = -1;
 	game->player = ft_calloc(sizeof(t_player), 1);
 	if (!game->player)
 		exit(EXIT_FAILURE);
 	game->img[0] = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	// game->nm = 0;
 	game->lst_map = NULL;
+	game->textures = ft_calloc(sizeof(t_texture), 4);
+	ft_error("Game init");
 }
 
 void	init_player(t_player *player)
@@ -45,23 +46,24 @@ void	init_player(t_player *player)
 int	init_map(int argc, char *argv[], t_game *game)
 {
 	if (argc != 2)
-		ft_error(1);
+		ft_cub_error(1);
 	if (!open_map(argv[1], game))
-		ft_error(2);
+		ft_cub_error(2);
 	if (!fill_lst(game))
-		ft_error(3);
+		ft_cub_error(3);
+	ft_error("Map Init");
 	if (!convert_lst(game))
-		ft_error(3);
+		ft_cub_error(3);
 	if (!is_enclosed(game))
-		ft_error(3);
+		ft_cub_error(3);
 	if (!allowed_char(game))
-		ft_error(3);
+		ft_cub_error(3);
 	// if (!sides_is_wall(game))
-	// 	ft_error(3);
+	// 	ft_cub_error(3);
 	if (!required_char(game))
-		ft_error(3);
+		ft_cub_error(3);
 	// if (!path_to_exit(game))
-	// 	ft_error(3);
+	// 	ft_cub_error(3);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:53:35 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/22 12:38:13 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:26:45 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ int	open_map(char *relative_path, t_game *game)
 	game->map_fd = open(relative_path, O_RDONLY);
 	if (game->map_fd < 0)
 		return (0);
+	ft_printf_fd(1, "game->map_fd: %d\n", game->map_fd);
 	return (1);
 }
 
-char	**texture_lst(t_game *game)
+void	texture_lst(t_game *game)
 {
 	t_texture	*head;
 	char		*line;
@@ -62,7 +63,6 @@ int	max_width(int width)
 int	fill_lst(t_game *game)
 {
 	char	*line;
-	int		i;
 	int		width;
 
 	line = "";
@@ -71,6 +71,7 @@ int	fill_lst(t_game *game)
 	while (line)
 	{
 		line = get_next_line(game->map_fd);
+		ft_error("fill_lst");
 		if (line == NULL)
 		{
 			if (width == -1)

@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:10:57 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/22 13:31:15 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:51:31 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "../libft/includes/libft.h"
-# include <errno.h>
-# include <fcntl.h>
 # include <stdlib.h>
-# include <signal.h>
-# include <sys/stat.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <errno.h>
+# include <stdio.h>
+// # include <signal.h>
+// # include <sys/stat.h>
 # include <sys/time.h>
 # include <features.h>
 # define __USE_MISC 1
@@ -33,6 +35,7 @@
 # define ROT_SPD	0.045
 # define SPEED		10.0
 # define LERP		0.2
+# define SYMBOLS	"01NSEW "
 
 # define BPX 64
 
@@ -64,7 +67,14 @@ typedef enum dirs
 }	t_dirs;
 
 /** @brief Structure for texture list
- * 
+ * @param name 		: texture name.
+ * @param path 		: texture path.
+ * @param symbol 	: texture symbol in map.
+ * @param size	 	: pixel size.
+ * @param nb		: number of stored sprites. Min 1.
+ * @param type		: texture enum t_sprites code.
+ * @param sprites 	: stored mlx_textures. Can store animated sprites.
+ * @param next		: pointer to next texture. (Could be removed).
  */
 typedef struct s_texture
 {
@@ -72,6 +82,8 @@ typedef struct s_texture
 	char				*path;
 	char				symbol;
 	int					size;
+	int					nb;
+	int					type;
 	mlx_texture_t		**sprites;
 	struct s_texture	*next;
 }	t_texture;
@@ -95,28 +107,24 @@ typedef struct s_player
 /// @brief Struct that contains all the data of the game
 /*!
  * @struct t_game
- * @param mlx : mlx pointer
- * @param img : MLX42 img ppointer, contains each sprite.
- * @param gw 	: game width (number of horizontal tiles)
- * @param gh 	: game height (number of vertical tiles)
- * @param fd 	: file descriptor
+ * @param mlx 		: mlx pointer
+ * @param img 		: MLX42 img ppointer, contains each sprite.
+ * @param max_width	: game width (number of horizontal tiles)
+ * @param g_height 	: game height (number of vertical tiles)
+ * @param fd 		: file descriptor
  * @param map_fd 	: map file descriptor
- * @param lst_map : *linked list that contains datas map
- * @param map : **map (2D array)
- * @param ps 	: *player sprite
- * @param gs 	: *gate sprite
- * @param ms 	: *monster sprite
- * @param cs 	: *collectable sprite
- * @param os 	: *other sprite
- * @param nc 	: number collectable
- * @param nm 	: number movements
- * @param player 	: *player struct
+ * @param lst_map 	: *linked list that contains datas map
+ * @param map 		: **map (2D array)
+ * @param nb_textures	: number of textures.
+ * @param textures 	: texture struct pointer
+ * @param player 	: *player struct pointer
+ * @param ply_pos[2]	: player global position
 */
 typedef struct s_game
 {
 	mlx_t				*mlx;
 	mlx_image_t			*img[IMG_COUNT];
-	int					*texture_buf[IMG_COUNT];
+	int					*buff_tex[IMG_COUNT];
 	int					max_width;
 	int					g_height;
 	int					fd;
@@ -156,9 +164,9 @@ char	*path_to_sprite(char *sprite_name, int nb);
 
 /* Draw */
 
-void	draw_block(int x, int y, mlx_texture_t *sprite, t_game *game);
+void	draw_block(int x, int y, int type, t_game *game);
 void	erase_block(t_game *game, mlx_texture_t *sprite);
-void	draw_background(t_game *game);
+void	draw_walls(t_game *game);
 void	draw_player(t_game *game);
 int		change_player_dir(t_game *game, char dir);
 void	draw_other(t_game *game);

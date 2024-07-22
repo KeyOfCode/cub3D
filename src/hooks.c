@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 10:21:29 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/19 10:59:03 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/22 14:02:32 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 void	exit_game(t_game *game)
 {
 	mlx_close_window(game->mlx);
-	ft_free_textures(game);
+	// ft_free_textures(game);
 	mlx_terminate(game->mlx);
 	ft_2darrfree((void **)game->map);
 	ft_lstclear(&game->lst_map, free);

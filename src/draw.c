@@ -6,11 +6,26 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 13:28:29 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/19 10:48:56 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:55:49 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+t_texture	*ft_find_texture(int type, t_texture *texture)
+{
+	t_texture	*head;
+
+	head = texture;
+	while (head)
+	{
+		if (head->type == type)
+			return (head);
+		head = head->next;
+	}
+	ft_error("Sprite could not be drawn");
+	exit(EXIT_FAILURE);
+}
 
 /**
  * @brief Receives a sprite as a texture, converts it to image, 
@@ -21,15 +36,22 @@
  * @param sprite : texture to render;
  * @param game : game pointer;
  */
-void	draw_block(int x, int y, mlx_texture_t *sprite, t_game *game)
+void	draw_block(int x, int y, int type, t_game *game)
 {
 	mlx_image_t	*image;
+	t_texture	*sprite;
+	int			i;
 
-	image = mlx_texture_to_image(game->mlx, sprite);
-	mlx_image_to_window(game->mlx, image, x, y);
+	sprite = ft_find_texture(type, game->textures);
+	i = -1;
+	while (++i < sprite->nb)
+	{
+		image = mlx_texture_to_image(game->mlx, sprite->sprites[i]);
+		mlx_image_to_window(game->mlx, image, x, y);
+	}
 }
 
-void	draw_walls(t_game *game, int i, int j)
+/* void	draw_walls_(t_game *game, int i, int j)
 {
 	if (i == 0 && (j == 0 || j == game->max_width - 2))
 		draw_block(j * BPX, i * BPX,
@@ -41,12 +63,12 @@ void	draw_walls(t_game *game, int i, int j)
 	else
 		draw_block(j * BPX, i * BPX,
 			game->os[wall1], game);
-}
+} */
 
-void	draw_background(t_game *game)
+void	draw_walls(t_game *game)
 {
-	int	i;
-	int	j;
+	int			i;
+	int			j;
 
 	i = 0;
 	while (i < game->g_height)
@@ -54,19 +76,22 @@ void	draw_background(t_game *game)
 		j = 0;
 		while (j < game->max_width - 1)
 		{
-			if (game->map[i][j] == '0' || game->map[i][j] == 'C'
-				|| game->map[i][j] == 'M' || game->map[i][j] == 'P')
+			if (game->map[i][j] == '1')
 				draw_block(j * BPX, i * BPX,
-					game->os[bg1], game);
-			else if (game->map[i][j] == '1')
-				draw_walls(game, i, j);
+					NO, game);
+			else
+				draw_block(j * BPX, i * BPX,
+					SO, game);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	draw_other(t_game *game)
+			// if (game->map[i][j] == '1')
+			// 	draw_walls_(game, i, j);
+
+/* void	draw_other(t_game *game)
 {
 	int	i;
 	int	j;
@@ -88,4 +113,4 @@ void	draw_other(t_game *game)
 		}
 		i++;
 	}
-}
+} */

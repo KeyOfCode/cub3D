@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 10:15:50 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/22 13:31:50 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:56:56 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,14 @@ int	main(int argc, char **argv)
 	t_game	*game;
 
 	game = (t_game *)malloc(sizeof(t_game));
-	
 	init_game(game);
-	(void)argc;
-	(void)argv;
+	// (void)argc;
+	// (void)argv;
 	init_map(argc, argv, game);
-	// resize_map(game);
-	// init_sprites(game);
+	resize_map(game);
+	init_sprites(game);
 	init_player(game->player);
-	// draw_background(game);
+	draw_walls(game);
 	// draw_other(game);
 	// draw_player(game);
 	hook_register(game);

@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 22:49:44 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/22 13:25:23 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:43:04 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	allowed_char(t_game *game)
 	{
 		j = -1;
 		while (game->map[i][++j])
-			if (ft_strchr("10NSWE ", game->map[i][j]) == 0
-				|| !(j == ft_strlen(game->map[i]) - 1
+			if (ft_strchr("01NSEW ", game->map[i][j]) == 0
+				|| !(j == (int)ft_strlen(game->map[i]) - 1
 				&& game->map[i][j] == '\n'))
 				return (0);
 	}
@@ -100,7 +100,7 @@ char	**ft_map_copy(char **map)
 	char	**copy;
 	int		i;
 
-	copy = ft_calloc(ft_2darr_len(map) + 1, sizeof(char *));
+	copy = ft_calloc(ft_2darr_len((void **)map) + 1, sizeof(char *));
 	if (!copy)
 		return (0);
 	i = -1;
