@@ -9,6 +9,7 @@ FLAGS	:= -Wall -Wextra -Werror
 HEADERS	:= -I./include/ -I $(LIBMLX)/include
 LIBMLX  := ./MLX42
 MLX		:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+LIBFT 	= 	libft/libft.a
 FT		:= ./libft/libft.a -Llibft/ -lft
 
 VALGRIND=	valgrind --leak-check=full --show-leak-kinds=all
@@ -88,4 +89,7 @@ debug:	${OBJS} $(LIBFT) ${MLX}
 	@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}debug ${CLR_RMV}..."
 	@${CC} ${HEADERS} ${FLAGS} -g -o debug ${OBJS} ${MLX} -Llibft/ -lft
 	@echo "$(GREEN)$(NAME) created ${CLR_RMV} ✔️"
+
+push:
+	./push.sh "push"
 	
