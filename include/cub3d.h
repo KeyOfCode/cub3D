@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:10:57 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/23 11:43:26 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:01:42 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ typedef struct s_game
 	mlx_t				*mlx;
 	mlx_image_t			*img[IMG_COUNT];
 	int					*buff_tex[IMG_COUNT];
+	char				**map_buff;
 	int					max_width;
 	int					g_height;
 	int					fd;

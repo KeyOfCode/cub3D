@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:53:35 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/23 12:22:32 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:37:50 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,33 @@ int	init_texture_lst(t_game *game)
 	t_texture	*head;
 	char		*line;
 	int			i;
+	int			j;
 	int			stop;
 
 	line = "";
 	head = game->textures;
-	while (line && (line[0] != '1' || line[0] != ' '))
+	j = -1;
+	while (++j < IMG_COUNT)
 	{
+		head = ft_calloc(sizeof(t_texture), 1);
 		line = get_next_line(game->map_fd);
-		ft_error("Init Texture lst");
-		ft_printf_fd(2, "Textures game->map_fd: %d\n", game->map_fd);
-		ft_printf_fd(2, "Line: %s\n", line);
+		// ft_error("Init Texture lst");
+		// ft_printf_fd(2, "Textures game->map_fd: %d\n", game->map_fd);
+		// ft_printf_fd(2, "Line: %s\n", line);
+		// ft_printf_fd(2, "head: %p\n", head);
+		// ft_printf_fd(2, "line[0]: %c\n", line[0]);
 		i = -1;
 		while (line[++i] != ' ')
-			head->name = ft_substr(line, 0, i);
-		stop = i;
+			head->name = ft_substr(line, 0, i + 1);
+		// ft_printf_fd(2, "\tname: %s\n", head->name);
+		stop = i + 1;
 		while (line[++i] != '\n')
 			head->path = ft_substr(line, stop, i);
+		// ft_printf_fd(2, "\tpath: %s\n\n", head->path);
 		if (!head)
 			return (0);
 		head = head->next;
-		// line = get_next_line(game->map_fd);
+		free(line);
 	}
 	return (1);
 }

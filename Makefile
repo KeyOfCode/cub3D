@@ -27,8 +27,8 @@ SRC_DIR		= src
 SRCS_LIST	= main.c init.c hooks.c player.c utils.c \
 				parsing.c parsing2.c sprites.c draw.c
 SRCS		= $(addprefix $(SRC_DIR)/, $(SRCS_LIST))
-						  
-OBJS 	:= $(SRCS:.c=.o)
+  
+OBJS 		= $(SRCS:.c=.o)
 
 .c.o:
 	${CC} ${FLAGS} ${HEADERS} -c $< -o ${<:.c=.o}
@@ -69,7 +69,7 @@ clean:
 
 fclean:		clean
 	@ ${RM} ${NAME}
-	@make -C libft/ fclean
+	@make -C libft fclean
 	@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)binary ✔️"
 
 re:			fclean all

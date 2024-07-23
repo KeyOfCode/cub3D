@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 12:19:31 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/23 10:29:06 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:15:39 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,18 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (newstr[i] && s2[j])
 		newstr[i++] = s2[j++];
 	return (newstr);
+}
+
+char	*ft_join_free(char *s1, char *s2, int f)
+{
+	char	*aux;
+
+	aux = ft_strjoin(s1, s2);
+	if (f >= 1)
+		free(s1);
+	if (f >= 2)
+		free(s2);
+	return (aux);
 }
 
 /* char	*ft_strjoin(char const *s1, char const *s2)

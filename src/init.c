@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 09:53:40 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/23 11:49:38 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:26:15 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	init_game(t_game *game)
 		exit(EXIT_FAILURE);
 	game->img[0] = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	game->lst_map = NULL;
-	game->textures = ft_calloc(sizeof(t_texture), IMG_COUNT - 1);
 	ft_error("Game init");
 }
 

@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 11:28:52 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/23 12:34:17 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:17:52 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,10 @@ char	*clean_stash(char **stash)
 		if (check < 0)
 			return (free_memory(&stash));
 		buf[check] = '\0';
-		line = ft_strjoin(stash, buf);
+		line = ft_join_free(stash, buf, 1);
 		if (found_newline(buf, BUFFER_SIZE) || check < BUFFER_SIZE)
 			break_read = 1;
-		free_memory(&stash);
+		// free_memory(stash);
 		stash = line;
 	}
 	return (clean_stash(&stash));
