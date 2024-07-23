@@ -58,7 +58,7 @@ int32_t	main(void)
         error();
 
 	// Try to load the file
-	mlx_texture_t* texture = mlx_load_png("./temp/sus.png");
+	* texture = mlx_load_png("./temp/sus.png");
 	if (!texture)
         error();
 	

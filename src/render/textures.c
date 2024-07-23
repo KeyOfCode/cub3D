@@ -20,26 +20,27 @@ static void	ft_get_texture(t_ray *ray, t_game game)
 
 void	ft_draw_pixels(t_ray *ray, t_player player, t_game game)
 {
+	t_rend	to_rend;
 	int 	y;
-	int		textureX;
-	int		textureY;
 	int		color;
-	double	step;
-	double	tex_pos;
 
 	ft_get_texture(ray, game);
-	textureX = (int)(ray->wall_x * texWidth);
+	to_rend.x = (int)(ray->wall_x * TEX_WIDTH);
 	if ((ray->side == 0 && ray->dir.x > 0) || (ray->side == 1
 			&& ray->dir.y < 0))
-		textureX = texWidth - textureX - 1;
-	step = 1.0 * texHeight / ray->line_height;
-	tex_pos = (ray->draw_start - WIN_HEIGHT / 2 + ray->line_height / 2) * step;
+		to_rend.x = TEX_WIDTH - to_rend.x - 1;
+	to_rend.step = 1.0 * TEX_HEIGHT / ray->line_height;
+	to_rend.pos = (ray->draw_start - HEIGHT / 2 + ray->line_height / 2) * to_rend.step;
 	y = ray->draw_start;
 	while (y < ray->draw_end) 
 	{
-		textureY = (int)tex_pos & (texHeight - 1);
-		tex_pos += step;
-		color = data->textures[tex->index][tex->size * tex->y + tex->x];
-		y++;
+		to_rend.y = (int)to_rend.pos & (TEX_HEIGHT - 1);
+		to_rend.pos += to_rend.step;
+		//color = ft_get_color(texture, to_rend.x, to_rend.y)
+/* 		if(ray->side == 1) 
+			color = (color >> 1) & 8355711;
+		if (color > 0)
+			data->texture_pixels[to_rend.y][to_rend.x] = color;
+		y++; */
 	}
 }

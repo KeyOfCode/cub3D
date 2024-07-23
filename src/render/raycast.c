@@ -11,7 +11,7 @@
 
 int ft_init_ray(t_ray *ray, t_player *player, int x)
 {
-	ray->camera_x = 2 * x / (double)WIN_WIDTH - 1;
+	ray->camera_x = 2 * x / (double)WIDTH - 1;
 	ray->dir.x = player->dir.x + player->fov.x * ray->camera_x;
 	ray->dir.y = player->dir.y + player->fov.y * ray->camera_x;
 	ray->map.x = (int)player->pos.x;
@@ -75,13 +75,13 @@ static void ft_calculate_line_height(t_ray *ray, t_player *player, t_game *game)
 		ray->wall_dist = (ray->sidedist.y - ray->deltadist.y);
 	else
 		ray->wall_dist = (ray->sidedist.x - ray->deltadist.x);
-	ray->line_height = (int)(WIN_HEIGHT/ ray->wall_dist);
-	ray->draw_start = -((ray->line_height) / 2) + (WIN_HEIGHT / 2);
+	ray->line_height = (int)(HEIGHT/ ray->wall_dist);
+	ray->draw_start = -((ray->line_height) / 2) + (HEIGHT / 2);
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
-	ray->draw_end = ray->line_height / 2 + WIN_HEIGHT / 2;
-	if (ray->draw_end >= WIN_HEIGHT)
-		ray->draw_end = WIN_HEIGHT - 1;
+	ray->draw_end = ray->line_height / 2 + HEIGHT / 2;
+	if (ray->draw_end >= HEIGHT)
+		ray->draw_end = HEIGHT - 1;
 	if (ray->side == 0)
 		ray->wall_x = player->pos.y + ray->wall_dist * ray->dir.y;
 	else
@@ -96,7 +96,7 @@ int ft_raycast(t_game *game)
 
 	x = 0;
 	ray = game->ray;
-	while (x < WIN_WIDTH)
+	while (x < WIDTH)
 	{
 		ft_init_ray(&ray, game->player, x);
 		ft_set_step_directions(&ray, game->player);
