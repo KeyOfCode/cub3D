@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+         #
+#    By: darismen <darismen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/19 11:41:39 by darismen          #+#    #+#              #
-#    Updated: 2024/03/17 20:25:37 by darismen         ###   ########.fr        #
+#    Updated: 2024/07/23 10:49:09 by darismen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ FILES=	ft_isalnum.c ft_isalpha.c ft_isdigit.c ft_isascii.c ft_isprint.c \
 				ft_lstiter.c		\
 				ft_lstmap.c			\
 		ft_printf.c ft_putchar.c ft_putstr.c ft_putnbr.c ft_printf_util.c \
-		get_next_line.c ft_putnbr_base_fd.c \
+		get_next_line.c gnl.c ft_putnbr_base_fd.c \
 
 
 SRCS= $(addprefix src/, ${FILES})
@@ -48,7 +48,9 @@ CFLAGS=		-Wall -Wextra -Werror -Iincludes/
 all:	${NAME}
 
 ${NAME}: ${OBJS}
+	@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
 	@${AR} ${NAME} ${OBJS}
+	@echo "$(GREEN)$(NAME) created ${CLR_RMV}✔️"
 
 ${OBJS}: ${SRCS}
 	@$(CC) $(CFLAGS) -c $(SRCS)
@@ -61,8 +63,19 @@ ${OBJS}: ${SRCS}
 
 clean:
 	@${RM} objs
+	@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✔️"
+
 fclean:		clean
 	@${RM} ${NAME}
+	@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)binary ✔️"
+
 re:		fclean ${NAME}
 
 .PHONY:	all clean fclean re
+
+CLR_RMV		:= \033[0m
+RED 		:= \033[1;31m
+GREEN 		:= \033[1;32m
+YELLOW		:= \033[1;33m
+BLUE		:= \033[1;34m
+CYAN 		:= \033[1;36m

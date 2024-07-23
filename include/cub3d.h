@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:10:57 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/22 15:51:31 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/23 11:43:26 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <stdio.h>
-// # include <signal.h>
+# include <signal.h>
 // # include <sys/stat.h>
 # include <sys/time.h>
 # include <features.h>
@@ -48,8 +48,7 @@ typedef enum move
 
 typedef enum s_sprites
 {
-	SPRITES,
-	NO = 1,
+	NO = 0,
 	SO,
 	EA,
 	WE,
@@ -155,12 +154,14 @@ void	ft_cub_error(int type);
 
 void	init_game(t_game *game);
 int		init_map(int argc, char *argv[], t_game *game);
+int init_texture_lst(t_game *game);
 void	init_player(t_player *player);
 void	init_sprites(t_game *game);
 int		find_player_pos(t_game *game);
 
-/*  */
+/* Textures */
 char	*path_to_sprite(char *sprite_name, int nb);
+
 
 /* Draw */
 

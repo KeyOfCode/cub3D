@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 10:15:50 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/22 15:56:56 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/23 11:44:50 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@
 void	ft_cub_error(int type)
 {
 	if (type == 1)
-		ft_putendl_fd("Error \nIncorrect number of arguments!", 2);
+		ft_error("Error \nIncorrect number of arguments!");
 	if (type == 2)
-		ft_putendl_fd("Error \nUnable to open the map!", 2);
+		ft_error("Error \nUnable to open the map!");
 	if (type == 3)
-		ft_putendl_fd("Error \nThe map is not in a valid format!", 2);
+		ft_error("Error \nThe map is not in a valid format!");
 	if (type == 4)
-		ft_putendl_fd("Error \nA sprite could not be opened !", 2);
+		ft_error("Error \nA sprite could not be opened !");
 	if (type == 5)
-		ft_putendl_fd("Error \nFATAL ERROR!", 2);
+		ft_error("Error \nFATAL ERROR!");
 	exit(EXIT_SUCCESS);
 }
 

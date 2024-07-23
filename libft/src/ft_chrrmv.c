@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_chrrmv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 10:30:05 by darismen          #+#    #+#             */
-/*   Updated: 2024/03/17 20:28:34 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/23 12:15:44 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  * @param c 
  * @return char* 
  */
-char	*ft_chrrmv(char *str, char c)
+char	*ft_chrrmv(char const *str, char c)
 {
 	char	*newstr;
 	int		i;
@@ -44,6 +44,5 @@ char	*ft_chrrmv(char *str, char c)
 			newstr[j++] = str[i];
 		i++;
 	}
-	free(str);
 	return (newstr);
 }
