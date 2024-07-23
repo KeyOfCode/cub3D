@@ -1,3 +1,8 @@
+#  |  |  ___ \    \  |         |
+#  |  |     ) |  |\/ |   _  |  |  /   _ 
+# ___ __|  __/   |   |  (   |    <    __/ 
+#    _|  _____| _|  _| \__,_| _|\_\ \___|
+#                              by jcluzet
 ################################################################################
 #                                     CONFIG                                   #
 ################################################################################
@@ -11,12 +16,11 @@ MLX		:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
-
 SRC_DIR		= src
 SRCS_LIST	= main.c init.c hooks.c player.c utils.c \
-				parsing.c parsing2.c sprites.c draw.c
+				parsing.c parsing2.c
 SRCS		= $(addprefix $(SRC_DIR)/, $(SRCS_LIST))
-	  
+						  
 OBJS 	:= $(SRCS:.c=.o)
 
 .c.o:
@@ -27,15 +31,9 @@ OBJS 	:= $(SRCS:.c=.o)
 ################################################################################
 
 ${NAME}:	${OBJS} ${LIBFT} ${MLX}
-	@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
-	@${CC} ${HEADERS} ${FLAGS} -o ${NAME} ${OBJS} ${MLX} -Llibft/ -lft
-	@echo "$(GREEN)$(NAME) created ${CLR_RMV}✔️"
-
-${MLX}:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
-
-${LIBFT}:
-	@$(MAKE) -C $(LIBFT)
+			@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
+			${CC} ${HEADERS} ${FLAGS} -o ${NAME} ${OBJS} ${MLX} -Llibft/ -lft
+			@echo "$(GREEN)$(NAME) created ${CLR_RMV}✔️"
 
 ${MLX}:
 	cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
@@ -61,15 +59,15 @@ re:			fclean all
 
 exe:
 	@make
-	./$(NAME) 
+	./$(NAME)
 
 val: $(OBJS) 
 	$(CC) $(FLAGS) -o val $(OBJS)
 	$(VALGRIND)  $(VAL_FLAGS)
 
-debug:	${OBJS} ${LIBFT} ${MLX}
+debug:	${OBJS}
 	@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}debug ${CLR_RMV}..."
-	@${CC} ${HEADERS} ${FLAGS} -g -o debug ${OBJS} ${MLX} -Llibft/ -lft
+	${CC} ${FLAGS} -g -o debug ${OBJS}
 	@echo "$(GREEN)$(NAME) created ${CLR_RMV} ✔️"
 
 
