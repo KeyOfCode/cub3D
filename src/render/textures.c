@@ -36,11 +36,11 @@ void	ft_draw_pixels(t_ray *ray, t_player player, t_game game)
 	{
 		to_rend.y = (int)to_rend.pos & (TEX_HEIGHT - 1);
 		to_rend.pos += to_rend.step;
-		//color = ft_get_color(texture, to_rend.x, to_rend.y)
-/* 		if(ray->side == 1) 
+		color = ft_get_color(texture, to_rend.x, to_rend.y);
+		if (ray->side == 1) 
 			color = (color >> 1) & 8355711;
 		if (color > 0)
-			data->texture_pixels[to_rend.y][to_rend.x] = color;
-		y++; */
+/* 			data->texture_pixels[to_rend.y][to_rend.x] = color; */
+		y++;
 	}
 }

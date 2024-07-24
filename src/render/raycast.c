@@ -98,6 +98,7 @@ int ft_raycast(t_game *game)
 	ray = game->ray;
 	while (x < WIDTH)
 	{
+		ft_init_player_dir(game);
 		ft_init_ray(&ray, game->player, x);
 		ft_set_step_directions(&ray, game->player);
 		ft_dda(game, &ray);
