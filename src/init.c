@@ -6,7 +6,7 @@
 /*   By: ezhou <ezhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 09:53:40 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/22 16:47:32 by ezhou            ###   ########.fr       */
+/*   Updated: 2024/07/29 11:37:53 by ezhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_game(t_game *game)
 	game->player = ft_calloc(sizeof(t_player), 1);
 	if (!game->player)
 		exit(EXIT_FAILURE);
-	game->img[0] = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	game->lst_map = NULL;
 	game->textures = ft_calloc(sizeof(t_texture), 4);
 	ft_error("Game init");

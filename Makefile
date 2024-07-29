@@ -10,22 +10,22 @@
 NAME	:= cub3D
 CC		:= gcc
 FLAGS	:= -Wall -Wextra -Werror 
-HEADERS	:= -I./include/ -I $(LIBMLX)/include
 LIBMLX  := ./MLX42
+HEADERS	:= -I./include/ -I$(LIBMLX)/include
 MLX		:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
 SRC_DIR		= src
 SRCS_LIST	= main.c init.c hooks.c player.c utils.c \
-				parsing.c parsing2.c
+				parsing.c parsing2.c render/color.c render/raycast.c \
+				render/render.c render/textures.c render/utils.c
 SRCS		= $(addprefix $(SRC_DIR)/, $(SRCS_LIST))
 						  
 OBJS 	:= $(SRCS:.c=.o)
 
-.c.o:
-	${CC} ${FLAGS} ${HEADERS} -c $< -o ${<:.c=.o}
-
+%.o : %.c
+	${CC} ${FLAGS} ${HEADERS} -c -o $@ $<
 ################################################################################
 #                                  Makefile  objs                              #
 ################################################################################
@@ -39,7 +39,7 @@ ${MLX}:
 	cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 ${LIBFT}:
-	@$(MAKE) -C $(LIBFT)
+	@$(MAKE) -C $(LIBFT) 
 
 all:		${NAME}
 

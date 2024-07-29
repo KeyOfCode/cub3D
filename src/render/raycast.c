@@ -9,15 +9,24 @@
  * -Asumimos que FOV = 60º
  */
 
-int ft_init_ray(t_ray *ray, t_player *player, int x)
+void	ft_init_dirs(t_game *game);
+
+static void ft_init_ray(t_ray *ray, t_player *player, int x)
 {
 	ray->camera_x = 2 * x / (double)WIDTH - 1;
+/* 	printf("player dir %f %f\n", player->dir.x, player->dir.y);
+	printf("player fov %f %f\n", player->fov.x, player->fov.y);
+	printf("cameraX %f", ray->camera_x); */
 	ray->dir.x = player->dir.x + player->fov.x * ray->camera_x;
+/* 	printf("%f + %f * %f = %f\n", player->dir.x, player->fov.x, ray->camera_x, ray->dir.x); */
 	ray->dir.y = player->dir.y + player->fov.y * ray->camera_x;
 	ray->map.x = (int)player->pos.x;
 	ray->map.y = (int)player->pos.y;
 	ray->deltadist.x = fabs(1 / ray->dir.x);
 	ray->deltadist.y = fabs(1 / ray->dir.y);
+/* 	printf("player_pos %f %f\n", player->pos.x, player->pos.y);
+	printf("map %f %f\n", ray->map.x, ray->map.y); */
+/* 	printf("deltadist %f %f\n", ray->deltadist.x, ray->deltadist.y); */
 }
 
 static void ft_set_step_directions(t_ray *ray, t_player *player)
@@ -26,6 +35,7 @@ static void ft_set_step_directions(t_ray *ray, t_player *player)
 	{
 		ray->step.x = -1;
 		ray->sidedist.x = (player->pos.x - ray->map.x) * ray->deltadist.x;
+/* 		printf("%f - %f * %f = %f\n", player->pos.x, ray->map.x, ray->deltadist.x, ray->sidedist.x); */
 	}
 	else
 	{
@@ -42,6 +52,7 @@ static void ft_set_step_directions(t_ray *ray, t_player *player)
 		ray->step.y = 1;
 		ray->sidedist.y = (ray->map.y + 1.0 - player->pos.y) * ray->deltadist.y;
 	}
+/* 	printf("%f\n", ray->sidedist.y); */
 }
 
 /*ray->map x e y son doubles, map son células del mapa, deberían ser solo ints. Comprobar si falla cambiar eso.*/
@@ -65,16 +76,21 @@ static void	ft_dda(t_game *game, t_ray *ray)
 			ray->side = 1;
 		}
 		if (game->map[(int)ray->map.y][(int)ray->map.x] > '0')
+		{
+/* 			printf("%f %f\n", ray->sidedist.x, ray->sidedist.y); */
+/* 			printf("%d %d %c\n", (int)ray->map.y, (int)ray->map.x, game->map[(int)ray->map.y][(int)ray->map.x]); */
 			hit = 1;
+		}
 	}
 }
 
-static void ft_calculate_line_height(t_ray *ray, t_player *player, t_game *game)
+static void ft_calculate_line_height(t_ray *ray, t_player *player)
 {
 	if (ray->side)
 		ray->wall_dist = (ray->sidedist.y - ray->deltadist.y);
 	else
 		ray->wall_dist = (ray->sidedist.x - ray->deltadist.x);
+/* 	printf("side %d wall_dist %f\n", ray->side, ray->wall_dist); */
 	ray->line_height = (int)(HEIGHT/ ray->wall_dist);
 	ray->draw_start = -((ray->line_height) / 2) + (HEIGHT / 2);
 	if (ray->draw_start < 0)
@@ -89,21 +105,20 @@ static void ft_calculate_line_height(t_ray *ray, t_player *player, t_game *game)
 	ray->wall_x -= floor(ray->wall_x);
 }
 
-int ft_raycast(t_game *game)
+int ft_raycast(t_game *game, t_ray *ray, int **pixel_data)
 {
-	t_ray ray;
 	int		x;
 
 	x = 0;
-	ray = game->ray;
 	while (x < WIDTH)
 	{
-		ft_init_player_dir(game);
-		ft_init_ray(&ray, game->player, x);
-		ft_set_step_directions(&ray, game->player);
-		ft_dda(game, &ray);
-		ft_calculate_line_height(&ray, game->player, game);
-		ft_draw_pixels(&ray, game->player, game);
+		ft_init_dirs(game);
+		ft_init_ray(ray, game->player, x);
+		ft_set_step_directions(ray, game->player);
+		ft_dda(game, ray);
+		ft_calculate_line_height(ray, game->player);
+		ft_register_pixels(ray, game, pixel_data, x);
 		x++;
 	}
+	return (EXIT_SUCCESS);
 }

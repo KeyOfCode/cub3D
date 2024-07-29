@@ -6,7 +6,7 @@
 /*   By: ezhou <ezhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:10:57 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/24 11:31:33 by ezhou            ###   ########.fr       */
+/*   Updated: 2024/07/29 16:16:54 by ezhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@
 # define SPEED		10.0
 # define LERP		0.2
 # define SYMBOLS	"01NSEW "
-# define TEX_WIDTH	64
-# define TEX_HEIGHT	64
+# define TEX_WIDTH	683
+# define TEX_HEIGHT	384
 # define TEX_SIZE	64
 
 # define BPX 64
@@ -69,28 +69,40 @@ typedef enum dirs
 	LEFT
 }	t_dirs;
 
+/**
+ * @brief Structure for raycast
+ * @param camera_x 		: X coordinate of the camera plane.
+ * @param dir 			: Direction vector of the ray.
+ * @param map 			: Current coordinates on the map, represents a cell.
+ * @param step	 		: Steps in both X and Y to perform DDA, 1 or -1.
+ * @param sidedist		: Distance from player to the collision wall.
+ * @param deltadist		: Distance from 1 point of the grid to the closest grid line, X or Y.
+ * @param wall_dist 	: Perpendicular distance from player to the collision point.
+ * @param wall_x		: Exact point of where the wall was hit.
+ * @param side	 		: Indicates if the ray has hit a Y grid line or an X grid line.
+ * @param line_height	: Distance from player to the collision wall.
+ * @param draw_start	: Indicates where in the screen a wall should start to be drawn.
+ * @param draw_end 		: Indicates where in the screen a wall should end.
+ */
 typedef struct s_ray
 {
-	double	camera_x;
-	t_vec2d dir;
-	t_vec2d map;
-	t_vec2d step;
-	t_vec2d sidedist;
-	t_vec2d deltadist;
-	double	wall_dist;
-	double	wall_x;
-	int		side;
-	int		line_height;
-	int		draw_start;
-	int		draw_end;
+	double			camera_x;
+	t_vec2d 		dir;
+	t_vec2d 		map;
+	t_vec2d 		step;
+	t_vec2d 		sidedist;
+	t_vec2d 		deltadist;
+	double			wall_dist;
+	double			wall_x;
+	int				side;
+	int				line_height;
+	int				draw_start;
+	int				draw_end;
+	mlx_texture_t	*texture;
 }	t_ray;
 
 typedef struct s_rend
 {
-	int				*floor;
-	int				*ceiling;
-	unsigned long	hex_floor;
-	unsigned long	hex_ceiling;
 	int				size;
 	int				index;
 	double			step;
@@ -157,7 +169,7 @@ typedef struct s_player
 typedef struct s_game
 {
 	mlx_t				*mlx;
-	mlx_image_t			*img[IMG_COUNT];
+	mlx_image_t			*img;
 	int					*buff_tex[IMG_COUNT];
 	int					max_width;
 	int					g_height;
@@ -165,11 +177,12 @@ typedef struct s_game
 	int					map_fd;
 	t_list				*lst_map;
 	char				**map;
-	int					nb_textures;
-	t_texture			*textures;
+/* 	int					nb_textures;
+	t_texture			*textures; */
 	t_player			*player;
 	int					ply_pos[2];
 	t_ray				ray;
+	mlx_texture_t		**textures;
 }	t_game;
 
 
@@ -228,6 +241,12 @@ void	rotation(t_player *player, int dir);
 void	ft_player_init_pos(t_player *player, char dir,
 			int x, int y);
 // void	collision(t_game *game, t_player *player);
+
+//Render
+int 	ft_render(t_game *game);
+int 	ft_raycast(t_game *game, t_ray *ray, int **pixel_data);
+void	ft_register_pixels(t_ray *ray, t_game *game, int **pixel_data, int x);
+int		ft_get_color(mlx_texture_t *texture, int pos_x, int pos_y);
 
 /* Utils */
 // void	fps(t_game *game);

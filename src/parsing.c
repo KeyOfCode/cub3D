@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ezhou <ezhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:53:35 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/22 16:26:45 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/29 11:38:13 by ezhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,45 @@ int	open_map(char *relative_path, t_game *game)
 	game->map_fd = open(relative_path, O_RDONLY);
 	if (game->map_fd < 0)
 		return (0);
-	ft_printf_fd(1, "game->map_fd: %d\n", game->map_fd);
+	ft_printf_fd(2, "game->map_fd: %d\n", game->map_fd);
 	return (1);
 }
 
-void	texture_lst(t_game *game)
+int	init_texture_lst(t_game *game)
 {
 	t_texture	*head;
 	char		*line;
 	int			i;
+	int			j;
 	int			stop;
 
 	line = "";
-	head = game->textures;
-	while (line && ft_chrrmv(line, ' ')[0] != '1')
+	head = 0;
+/* 	head = game->textures; */
+	j = -1;
+	while (++j < IMG_COUNT)
 	{
+		head = ft_calloc(sizeof(t_texture), 1);
 		line = get_next_line(game->map_fd);
+		// ft_error("Init Texture lst");
+		// ft_printf_fd(2, "Textures game->map_fd: %d\n", game->map_fd);
+		// ft_printf_fd(2, "Line: %s\n", line);
+		// ft_printf_fd(2, "head: %p\n", head);
+		// ft_printf_fd(2, "line[0]: %c\n", line[0]);
 		i = -1;
 		while (line[++i] != ' ')
-			head->name = ft_substr(line, 0, i);
-		stop = i;
+			head->name = ft_substr(line, 0, i + 1);
+		// ft_printf_fd(2, "\tname: %s\n", head->name);
+		stop = i + 1;
 		while (line[++i] != '\n')
 			head->path = ft_substr(line, stop, i);
+		// ft_printf_fd(2, "\tpath: %s\n\n", head->path);
+		if (!head)
+			return (0);
 		head = head->next;
+		free(line);
 	}
+	return (1);
 }
 
 int	max_width(int width)
@@ -63,23 +78,20 @@ int	max_width(int width)
 int	fill_lst(t_game *game)
 {
 	char	*line;
-	int		width;
 
 	line = "";
-	width = -1;
-	game->max_width = width;
 	while (line)
 	{
+		printf("line: %p", line);
 		line = get_next_line(game->map_fd);
-		ft_error("fill_lst");
 		if (line == NULL)
 		{
-			if (width == -1)
+			if ((int)ft_strlen(line) - 1 == -1)
 				return (0);
 			return (1);
 		}
-		width = (int)ft_strlen(line) - 1;
-		game->max_width = max_width(width);
+		ft_error("fill_lst");
+		game->max_width = max_width((int)ft_strlen(line) - 1);
 		if (game->lst_map == NULL)
 			game->lst_map = ft_lstnew(line);
 		else
