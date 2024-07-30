@@ -6,7 +6,7 @@
 /*   By: ezhou <ezhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:10:57 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/29 16:16:54 by ezhou            ###   ########.fr       */
+/*   Updated: 2024/07/30 17:53:23 by ezhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,10 +243,10 @@ void	ft_player_init_pos(t_player *player, char dir,
 // void	collision(t_game *game, t_player *player);
 
 //Render
-int 	ft_render(t_game *game);
-int 	ft_raycast(t_game *game, t_ray *ray, int **pixel_data);
-void	ft_register_pixels(t_ray *ray, t_game *game, int **pixel_data, int x);
-int		ft_get_color(mlx_texture_t *texture, int pos_x, int pos_y);
+int 			ft_render(t_game *game);
+int 			ft_raycast(t_game *game, t_ray *ray, uint32_t **pixel_data);
+void			ft_register_pixels(t_ray *ray, t_game *game, uint32_t **pixel_data, int x);
+uint32_t		ft_get_color(mlx_texture_t *texture, int pos_x, int pos_y);
 
 /* Utils */
 // void	fps(t_game *game);

@@ -14,11 +14,11 @@ void	ft_init_dirs(t_game *game);
 static void ft_init_ray(t_ray *ray, t_player *player, int x)
 {
 	ray->camera_x = 2 * x / (double)WIDTH - 1;
-/* 	printf("player dir %f %f\n", player->dir.x, player->dir.y);
-	printf("player fov %f %f\n", player->fov.x, player->fov.y);
-	printf("cameraX %f", ray->camera_x); */
+/* 	printf("player dir %f %f\n", player->dir.x, player->dir.y); */
+/* 	printf("player fov %f %f\n", player->fov.x, player->fov.y); */
+/* 	printf("cameraX %f\n", ray->camera_x); */
 	ray->dir.x = player->dir.x + player->fov.x * ray->camera_x;
-/* 	printf("%f + %f * %f = %f\n", player->dir.x, player->fov.x, ray->camera_x, ray->dir.x); */
+/*  	printf("%f + %f * %f = %f\n", player->dir.x, player->fov.x, ray->camera_x, ray->dir.x); */
 	ray->dir.y = player->dir.y + player->fov.y * ray->camera_x;
 	ray->map.x = (int)player->pos.x;
 	ray->map.y = (int)player->pos.y;
@@ -90,29 +90,32 @@ static void ft_calculate_line_height(t_ray *ray, t_player *player)
 		ray->wall_dist = (ray->sidedist.y - ray->deltadist.y);
 	else
 		ray->wall_dist = (ray->sidedist.x - ray->deltadist.x);
-/* 	printf("side %d wall_dist %f\n", ray->side, ray->wall_dist); */
+/* 	printf("wall_dist: %f\n", ray->wall_dist); */
 	ray->line_height = (int)(HEIGHT/ ray->wall_dist);
 	ray->draw_start = -((ray->line_height) / 2) + (HEIGHT / 2);
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
 	ray->draw_end = ray->line_height / 2 + HEIGHT / 2;
+/* 	printf("draw_start: %d draw_end: %d\n", ray->draw_start, ray->draw_end); */
 	if (ray->draw_end >= HEIGHT)
 		ray->draw_end = HEIGHT - 1;
 	if (ray->side == 0)
 		ray->wall_x = player->pos.y + ray->wall_dist * ray->dir.y;
 	else
 		ray->wall_x = player->pos.x + ray->wall_dist * ray->dir.x;
+/* 	printf("%d\n", ray->side); */
+/* 	printf("pox.x:%f + wall_dist:%f * dir.x:%f = %f\n", player->pos.x, ray->wall_dist, ray->dir.x, ray->wall_x); */
 	ray->wall_x -= floor(ray->wall_x);
 }
 
-int ft_raycast(t_game *game, t_ray *ray, int **pixel_data)
+int ft_raycast(t_game *game, t_ray *ray, uint32_t **pixel_data)
 {
 	int		x;
 
 	x = 0;
 	while (x < WIDTH)
 	{
-		ft_init_dirs(game);
+		ft_init_dirs(game); //ESTO ME LO DEBERIAN DAR
 		ft_init_ray(ray, game->player, x);
 		ft_set_step_directions(ray, game->player);
 		ft_dda(game, ray);

@@ -6,7 +6,7 @@
 /*   By: ezhou <ezhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 10:15:50 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/29 17:05:20 by ezhou            ###   ########.fr       */
+/*   Updated: 2024/07/30 17:52:10 by ezhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ int	main(int argc, char **argv)
 	game->map[5] = "1111111111111111111111111";
 	game->player = ft_calloc(1, sizeof(t_player));
 	game->player->pos.x = 2;
-	game->player->pos.y = 1;
+	game->player->pos.y = 1.5;
 	game->player->yaw = 270.0;
 	game->textures = ft_calloc(4, sizeof(mlx_texture_t *));
 	game->textures[0] = mlx_load_png("./west.png"); //WEST
 	game->textures[1] = mlx_load_png("./north.png"); //NORTH
-	game->textures[2] = mlx_load_png("./east.png"); //EAST
-	game->textures[3] = mlx_load_png("./south.png"); //SOUTH
+	game->textures[2] = mlx_load_png("./hot-dog.png"); //EAST
+	game->textures[3] = mlx_load_png("./hot-dog.png"); //SOUTH
 	if (!(game->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
 	{
 		puts(mlx_strerror(mlx_errno));

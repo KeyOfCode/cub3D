@@ -35,7 +35,7 @@ static void	ft_clean_image(mlx_image_t *image)
 	}
 }
 
-static void	set_pixel(int **pixel_data, mlx_image_t *image, int x, int y)
+static void	set_pixel(uint32_t **pixel_data, mlx_image_t *image, int x, int y)
 {
 	int	ceiling;
 	int	floor;
@@ -43,16 +43,14 @@ static void	set_pixel(int **pixel_data, mlx_image_t *image, int x, int y)
 	floor = get_rgba(205, 225, 254, 255);
 	ceiling = get_rgba(255,248,220,255);
 	if (pixel_data[y][x] > 0)
-	{
 		mlx_put_pixel(image, x, y, pixel_data[y][x]);
-	}
 	else if (y > HEIGHT / 2)
 		mlx_put_pixel(image, x, y, ceiling);
 	else if (y < HEIGHT / 2)
 		mlx_put_pixel(image, x, y, floor);
 }
 
-static void	ft_render_frame(t_game *game, int **pixels)
+static void	ft_render_frame(t_game *game, uint32_t **pixels)
 {
 	int				x;
 	int				y;
@@ -71,9 +69,9 @@ static void	ft_render_frame(t_game *game, int **pixels)
 	}
 }
 
-static int	**ft_init_pixels(void)
+static uint32_t	**ft_init_pixels(void)
 {
-	int	**result; 
+	uint32_t	**result; 
 	int	i;
 
 	result = ft_calloc(HEIGHT,
@@ -84,7 +82,7 @@ static int	**ft_init_pixels(void)
 	while (i < HEIGHT)
 	{
 		result[i] = ft_calloc(WIDTH + 1,
-				sizeof (int *));
+				sizeof (uint32_t *));
 		/* 	if (!result[i])
 			ft_exit_error(game); */
 		i++;
@@ -94,8 +92,8 @@ static int	**ft_init_pixels(void)
 
 int ft_render(t_game *game)
 {
-	int 	**pixel_data;
-	t_ray 	ray;
+	uint32_t	**pixel_data;
+	t_ray 		ray;
 
 	pixel_data = ft_init_pixels();
 	ft_init_ray(&ray);
