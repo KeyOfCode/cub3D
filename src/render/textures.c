@@ -38,7 +38,7 @@ void	ft_register_pixels(t_ray *ray, t_game *game, uint32_t **pixel_data, int x)
 	{
 		to_rend.y = (int)to_rend.pos % TEX_HEIGHT;
 		to_rend.pos += to_rend.step;
-		printf("x: %d y: %d\n", to_rend.x, to_rend.y);
+/* 		printf("x: %d y: %d\n", to_rend.x, to_rend.y); */
 		color = ft_get_color(ray->texture, to_rend.x, to_rend.y);
 		if (color > 0)
  			pixel_data[y][x] = color;

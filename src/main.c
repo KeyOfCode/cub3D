@@ -6,7 +6,7 @@
 /*   By: ezhou <ezhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 10:15:50 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/30 17:52:10 by ezhou            ###   ########.fr       */
+/*   Updated: 2024/07/31 15:44:34 by ezhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,15 @@ int	main(int argc, char **argv)
 	game->map[4] = ft_calloc(26, sizeof(char));
 	game->map[5] = ft_calloc(26, sizeof(char));
 	game->map[0] = "1111111111111111111111111";
-	game->map[1] = "10S0110000100000000000001";
-	game->map[2] = "1000110000000000111111001";
+	game->map[1] = "1010110000100000000000001";
+	game->map[2] = "1010110000000000111111001";
 	game->map[3] = "1000110000000000110001001";
 	game->map[4] = "1000000000100000000001001";
 	game->map[5] = "1111111111111111111111111";
 	game->player = ft_calloc(1, sizeof(t_player));
-	game->player->pos.x = 2;
+	game->player->pos.x = 3.5;
 	game->player->pos.y = 1.5;
-	game->player->yaw = 270.0;
+	game->player->yaw = 270; 
 	game->textures = ft_calloc(4, sizeof(mlx_texture_t *));
 	game->textures[0] = mlx_load_png("./west.png"); //WEST
 	game->textures[1] = mlx_load_png("./north.png"); //NORTH
