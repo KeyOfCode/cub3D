@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:53:35 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/23 13:37:50 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/31 20:30:50 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,12 @@ int	max_width(int width)
 	return (width);
 }
 
+void	free_str(char **str)
+{
+	free(*str);
+	*str = NULL;
+}
+
 int	fill_lst(t_game *game)
 {
 	char	*line;
@@ -81,24 +87,27 @@ int	fill_lst(t_game *game)
 	line = "";
 	while (line)
 	{
-		printf("line: %p", line);
 		line = get_next_line(game->map_fd);
-		if (line == NULL)
-		{
-			if ((int)ft_strlen(line) - 1 == -1)
-				return (0);
+		if (line == NULL && game->lst_map != NULL)
 			return (1);
-		}
-		ft_error("fill_lst");
 		game->max_width = max_width((int)ft_strlen(line) - 1);
+		if (game->max_width < 4)
+			return (0);
 		if (game->lst_map == NULL)
 			game->lst_map = ft_lstnew(line);
 		else
 			ft_lstadd_back(&(game->lst_map), ft_lstnew(line));
-		free(line);
 	}
-	return (free(line), 1);
+	if (line)
+		free(line);
+	return (1);
 }
+
+		// ft_printf_fd(2, "fill_lst\n");
+		// ft_printf_fd(2, "line: %s", line);
+			// ft_printf_fd(2, "exit!\n\n");
+		// ft_printf_fd(2, "fill_lst Complete!\n\n");
+
 
 int	convert_lst(t_game *game)
 {
@@ -121,8 +130,5 @@ int	convert_lst(t_game *game)
 		i++;
 		lst = lst->next;
 	}
-	game->max_width = ft_strlen(game->map[0]);
-	if (game->max_width < 4)
-		return (0);
 	return (1);
 }

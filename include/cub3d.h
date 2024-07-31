@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:10:57 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/23 13:01:42 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:49:17 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ void	ft_cub_error(int type);
 
 /* Init */
 
-void	init_game(t_game *game);
+int	init_game(t_game *game);
 int		init_map(int argc, char *argv[], t_game *game);
 int init_texture_lst(t_game *game);
 void	init_player(t_player *player);

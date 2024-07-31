@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 10:15:50 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/23 13:06:50 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:48:49 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ int	main(int argc, char **argv)
 	t_game	*game;
 
 	game = (t_game *)malloc(sizeof(t_game));
-	init_game(game);
+	if (!init_game(game))
+		return (puts(mlx_strerror(mlx_errno)), EXIT_FAILURE);
+	// init_game(game);
 	// (void)argc;
 	// (void)argv;
 	init_map(argc, argv, game);

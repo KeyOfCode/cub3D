@@ -6,25 +6,29 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 09:53:40 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/23 13:26:15 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/31 19:42:43 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_game(t_game *game)
+int	init_game(t_game *game)
 {
 	game->mlx = mlx_init(WIDTH, HEIGHT, "cub3D", true);
 	if (!game->mlx)
-		ft_cub_error(5);
+		return (puts(mlx_strerror(mlx_errno)), EXIT_FAILURE);
 	game->max_width = -1;
 	game->g_height = -1;
 	game->player = ft_calloc(sizeof(t_player), 1);
 	if (!game->player)
 		exit(EXIT_FAILURE);
 	game->img[0] = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	if (!game->img[0])
+		return (mlx_close_window(game->mlx),
+			puts(mlx_strerror(mlx_errno)), EXIT_FAILURE);
 	game->lst_map = NULL;
 	ft_error("Game init");
+	return (1);
 }
 
 void	init_player(t_player *player)
@@ -56,14 +60,18 @@ int	init_map(int argc, char *argv[], t_game *game)
 	ft_error("Map Init");
 	if (!convert_lst(game))
 		ft_cub_error(3);
+	ft_error("Convert Map");
 	if (!is_enclosed(game))
 		ft_cub_error(3);
+	ft_error("Is Enclosed");
 	if (!allowed_char(game))
 		ft_cub_error(3);
+	ft_error("Allowed Char");
 	// if (!sides_is_wall(game))
 	// 	ft_cub_error(3);
 	if (!required_char(game))
 		ft_cub_error(3);
+	ft_error("Required Char");
 	// if (!path_to_exit(game))
 	// 	ft_cub_error(3);
 	return (1);

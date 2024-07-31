@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 22:49:44 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/22 15:43:04 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/31 20:31:52 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,26 @@ int	allowed_char(t_game *game)
 	{
 		j = -1;
 		while (game->map[i][++j])
-			if (ft_strchr("01NSEW ", game->map[i][j]) == 0
-				|| !(j == (int)ft_strlen(game->map[i]) - 1
-				&& game->map[i][j] == '\n'))
+		{
+			if (ft_strchr("01NSEW \n", game->map[i][j]) == 0)
 				return (0);
+		}
 	}
 	return (1);
 }
+
+/* 	
+	ft_printf_fd(2, "allowed_char\n");
+	ft_printf_fd(2, "game->map[%d][%d] = %c\n", i, j, game->map[i][j]);
+ */
+
+// ft_printf_fd(2, "map[%d][%d] == %c\n", row, i, map[row][i]);
 
 int	check_wall(char **map, int row, int i)
 {
 	while (map[row][i])
 	{
-		if (map[row][i] != '1' && map[row][i] != ' ')
+		if (map[row][i] != '1' && map[row][i] != ' ' && map[row][i] != '\n')
 			return (0);
 		i++;
 	}
@@ -57,15 +64,23 @@ int	is_enclosed(t_game *game)
 		split = ft_split(map[i], ' ');
 		j = -1;
 		while (split[++j])
-			if (split[j][0] != 1 &&
-				split[j][ft_strlen(split[j])] != 1)
+		{
+			if (split[j][0] != '1' ||
+				split[j][ft_strlen(split[j]) - 2] != '1')
 				return (free(split), 0);
+		}
 	}
 	free(split);
-	if (!check_wall(map, i, 0))
+	if (!check_wall(map, i - 1, 0))
 		return (0);
 	return (1);
 }
+
+		// ft_printf_fd(2, "map[%d] == %s\n", i, map[i]);
+			// ft_printf_fd(2, "split[%d] == %s\n", j, split[j]);
+			// ft_printf_fd(2, "split[%d][0] == %c\n", j, split[j][0]);
+			// ft_printf_fd(2, "split[%d][%d] == %c\n", j, len, split[j][len]);
+		// ft_printf_fd(2, "is_enclosed\n");
 
 int	required_char(t_game *game)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 10:42:54 by darismen          #+#    #+#             */
-/*   Updated: 2022/09/21 10:57:24 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/31 19:38:22 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *s)
 	size_t	l;
 
 	l = 0;
+	if (!s)
+		return (0);
 	while (s[l] != 0)
 		l++;
 	return (l);
