@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 22:49:44 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/31 20:31:52 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/07 13:17:42 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	is_enclosed(t_game *game)
 		while (split[++j])
 		{
 			if (split[j][0] != '1' ||
-				split[j][ft_strlen(split[j]) - 2] != '1')
+				split[j][ft_strlen(split[j]) - 1] != '1')
 				return (free(split), 0);
 		}
 	}

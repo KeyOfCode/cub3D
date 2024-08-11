@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 16:56:46 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/31 19:16:27 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/07 11:24:40 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ int	ft_format(int fd, char c, va_list ap)
 
 int	ft_printf_fd(int fd, char const *str, ...);
 
-int	ft_printf(char const *str, ...)
+int	ft_printf(char const *str, va_list args)
 {
 	int	len;
 
-	len = ft_printf_fd(1, str, ...);
+	len = ft_printf_fd(1, str, args);
 	return (len);
 }
 

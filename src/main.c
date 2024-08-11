@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 10:15:50 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/31 18:48:49 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/11 09:15:33 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,23 @@ void	game_loop(void *param)
 	t_game		*game;
 
 	game = param;
-	(void)game;
+	ft_render(game);
+	// (void)game;
+}
+
+void ft_print_map(t_game *game)
+{
+	t_texture *tex = game->textures;
+
+	while (tex)
+	{
+		ft_printf_fd(1, "%s: %s\n", tex->name, tex->path);
+		tex = tex->next;
+	}
+	for (int i = 0; i < game->g_height; i++)
+	{
+		ft_printf_fd(1, "[%d]: %s\n", i, game->map[i]);
+	}
 }
 
 int	main(int argc, char **argv)
@@ -47,14 +63,16 @@ int	main(int argc, char **argv)
 	game = (t_game *)malloc(sizeof(t_game));
 	if (!init_game(game))
 		return (puts(mlx_strerror(mlx_errno)), EXIT_FAILURE);
+	ft_error("Game init");
 	// init_game(game);
 	// (void)argc;
 	// (void)argv;
 	init_map(argc, argv, game);
-	resize_map(game);
+	// resize_map(game);
 	init_sprites(game);
+	ft_print_map(game);
 	init_player(game->player);
-	draw_walls(game);
+	// draw_walls(game);
 	// draw_other(game);
 	// draw_player(game);
 	hook_register(game);

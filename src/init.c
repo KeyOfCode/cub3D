@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 09:53:40 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/31 19:42:43 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/11 09:31:17 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	init_game(t_game *game)
 		return (mlx_close_window(game->mlx),
 			puts(mlx_strerror(mlx_errno)), EXIT_FAILURE);
 	game->lst_map = NULL;
-	ft_error("Game init");
+	game->textures = NULL;
 	return (1);
 }
 
@@ -52,28 +52,30 @@ int	init_map(int argc, char *argv[], t_game *game)
 		ft_cub_error(1);
 	if (!open_map(argv[1], game))
 		ft_cub_error(2);
+	ft_error("Textures Init");
 	if (!init_texture_lst(game))
 		ft_cub_error(5);
-	ft_error("Textures Init");
+	ft_error("Textures Init Finished");
+	ft_error("Map Init");
 	if (!fill_lst(game))
 		ft_cub_error(3);
-	ft_error("Map Init");
+	ft_error("Map Init Finished");
+	ft_error("Convert Map");
 	if (!convert_lst(game))
 		ft_cub_error(3);
-	ft_error("Convert Map");
+	ft_error("Convert Map Finished");
+	ft_error("Is Enclosed");
 	if (!is_enclosed(game))
 		ft_cub_error(3);
-	ft_error("Is Enclosed");
+	ft_error("Is Enclosed Finished");
+	ft_error("Allowed Char");
 	if (!allowed_char(game))
 		ft_cub_error(3);
-	ft_error("Allowed Char");
-	// if (!sides_is_wall(game))
-	// 	ft_cub_error(3);
+	ft_error("Allowed Char Finished");
+	ft_error("Required Char");
 	if (!required_char(game))
 		ft_cub_error(3);
-	ft_error("Required Char");
-	// if (!path_to_exit(game))
-	// 	ft_cub_error(3);
+	ft_error("Required Char Finished");
 	return (1);
 }
 

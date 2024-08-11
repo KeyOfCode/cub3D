@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:53:35 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/31 20:30:50 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/11 09:38:05 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	open_map(char *relative_path, t_game *game)
 	game->map_fd = open(relative_path, O_RDONLY);
 	if (game->map_fd < 0)
 		return (0);
-	ft_printf_fd(2, "game->map_fd: %d\n", game->map_fd);
+	// ft_printf_fd(2, "game->map_fd: %d\n", game->map_fd);
 	return (1);
 }
 
@@ -41,28 +41,46 @@ int	init_texture_lst(t_game *game)
 	j = -1;
 	while (++j < IMG_COUNT)
 	{
+		ft_printf_fd(2, "texture_lst\n");
 		head = ft_calloc(sizeof(t_texture), 1);
 		line = get_next_line(game->map_fd);
-		// ft_error("Init Texture lst");
-		// ft_printf_fd(2, "Textures game->map_fd: %d\n", game->map_fd);
-		// ft_printf_fd(2, "Line: %s\n", line);
-		// ft_printf_fd(2, "head: %p\n", head);
-		// ft_printf_fd(2, "line[0]: %c\n", line[0]);
 		i = -1;
 		while (line[++i] != ' ')
 			head->name = ft_substr(line, 0, i + 1);
-		// ft_printf_fd(2, "\tname: %s\n", head->name);
 		stop = i + 1;
 		while (line[++i] != '\n')
 			head->path = ft_substr(line, stop, i);
-		// ft_printf_fd(2, "\tpath: %s\n\n", head->path);
 		if (!head)
 			return (0);
+		// ft_printf_fd(2, "Line: %s", line);
+		// ft_printf_fd(2, "head: %p\n", head);
+		// ft_printf_fd(2, "line[0]: %c\n", line[0]);
+		// ft_printf_fd(2, "\tname: %s\n", head->name);
+		// ft_printf_fd(2, "\tpath: %s\n\n", head->path);
 		head = head->next;
 		free(line);
 	}
 	return (1);
 }
+
+int	parser(t_game *game)
+{
+	int	i;
+
+	fill_lst(game);
+	i = -1;
+	while (++i < IMG_COUNT)
+		init_texture_lst();
+	while ()
+}
+
+// ft_error("Init Texture lst");
+		// ft_printf_fd(2, "Textures game->map_fd: %d\n", game->map_fd);
+		// ft_printf_fd(2, "Line: %s\n", line);
+		// ft_printf_fd(2, "head: %p\n", head);
+		// ft_printf_fd(2, "line[0]: %c\n", line[0]);
+		// ft_printf_fd(2, "\tname: %s\n", head->name);
+		// ft_printf_fd(2, "\tpath: %s\n\n", head->path);
 
 int	max_width(int width)
 {
@@ -108,7 +126,6 @@ int	fill_lst(t_game *game)
 			// ft_printf_fd(2, "exit!\n\n");
 		// ft_printf_fd(2, "fill_lst Complete!\n\n");
 
-
 int	convert_lst(t_game *game)
 {
 	t_list	*lst;
@@ -124,7 +141,7 @@ int	convert_lst(t_game *game)
 	i = 0;
 	while (lst)
 	{
-		game->map[i] = ft_strdup(lst->content);
+		game->map[i] = ft_chrrmv(lst->content, '\n');
 		if (!game->map[i])
 			exit(EXIT_FAILURE);
 		i++;
