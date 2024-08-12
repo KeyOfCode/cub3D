@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 12:12:04 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/07 12:16:17 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:30:36 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int ft_render(t_game *game)
 	pixel_data = ft_init_pixels();
 	ft_init_ray(&ray);
 	ft_raycast(game, &ray, pixel_data);
-	ft_printf_fd(2, "Seggsfaults!\n");
+	// ft_printf_fd(2, "Segfaults!\n");
 	ft_render_frame(game, pixel_data);
 	return (EXIT_SUCCESS);
 }

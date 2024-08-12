@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 22:49:44 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/07 13:17:42 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:46:58 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,10 @@ int	required_char(t_game *game)
 		while (game->map[i][++j])
 			if (ft_strchr("NSWE", game->map[i][j]))
 				if (++check == 1)
-					ft_player_init_pos(game->player,
-						game->map[i][j], j, i);
+					ft_player_init_pos(game, game->map[i][j], j, i);
 	}
+	// ft_printf_fd(2, " pos x %d, pos y %d\n",
+	// 	(int)game->player->pos.x, (int)game->player->pos.y);
 	if (check != 1)
 		return (0);
 	return (1);

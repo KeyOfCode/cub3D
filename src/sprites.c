@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 13:36:17 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/11 09:14:39 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:44:01 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,7 @@ char	*path_to_sprite(char *sprite_name, int nb)
 	char	*str2;
 
 	nbr = ft_itoa(nb);
-	str1 = ft_strjoin("./textures/", sprite_name);
-	str2 = ft_strjoin(str1, "/");
-	free(str1);
-	str1 = ft_strjoin(str2, sprite_name);
-	free(str2);
+	str1 = ft_strjoin("./textures/wall/", sprite_name);
 	str2 = ft_strjoin(str1, "_");
 	free(str1);
 	str1 = ft_strjoin(str2, nbr);
@@ -41,6 +37,7 @@ char	*path_to_sprite(char *sprite_name, int nb)
 void	load_textures(char *sprite_name, int nb_sprite,
 		t_texture *textures)
 {
+	static int	symb = -1;
 	int		index;
 	char	*path;
 	int		fd;
@@ -54,6 +51,8 @@ void	load_textures(char *sprite_name, int nb_sprite,
 			ft_cub_error(4);
 		close(fd);
 		textures->sprites[index] = mlx_load_png(path);
+		textures->symbol = ++symb;
+		ft_printf_fd(2, "texture loaded\n");
 		free(path);
 	}
 }
@@ -65,7 +64,29 @@ void	init_sprites(t_game *game)
 	head = game->textures;
 	while (head)
 	{
-		load_textures(head->name, head->nb, head);
+		load_textures(head->name, 1, head);
 		head = head->next;
 	}
 }
+
+/* char	*path_to_sprite(char *sprite_name, int nb)
+{
+	char	*nbr;
+	char	*str1;
+	char	*str2;
+
+	nbr = ft_itoa(nb);
+	str1 = ft_strjoin("./textures/wall/", sprite_name);
+	str2 = ft_strjoin(str1, "/");
+	free(str1);
+	str1 = ft_strjoin(str2, sprite_name);
+	free(str2);
+	str2 = ft_strjoin(str1, "_");
+	free(str1);
+	str1 = ft_strjoin(str2, nbr);
+	free(str2);
+	str2 = ft_strjoin(str1, ".png");
+	free(str1);
+	free(nbr);
+	return (str2);
+} */

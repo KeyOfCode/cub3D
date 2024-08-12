@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:47:30 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/07 12:25:18 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:45:20 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,11 @@ void	ft_set_player_dir(t_game *game, char dir)
 	return (0);
 } */
 
-void	ft_player_init_pos(t_player *player, char dir,
-	int x, int y)
+void	ft_player_init_pos(t_game *game, char dir, int x, int y)
 {
+	t_player	*player;
+
+	player = game->player;
 	player->pos.x = (double)x;
 	player->pos.y = (double)y;
 	if (dir == 'N')
@@ -103,6 +105,10 @@ void	ft_player_init_pos(t_player *player, char dir,
 	else if (dir == 'W')
 		player->yaw = 270;
 }
+
+	// ft_printf_fd(2, "x %d, y %d\n", x, y);
+	// ft_printf_fd(2, "x %d, y %d\n", (int)player->pos.x , (int)player->pos.y);
+
 
 /* 	if (ft_strchr("WS", cross))
 		player->speed.y = lerp(0.0f, 10.0f, .5f);

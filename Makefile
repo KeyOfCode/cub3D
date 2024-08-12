@@ -25,7 +25,7 @@ VAL_FLAGS=	--child-silent-after-fork=yes \
 
 SRC_DIR		= src
 SRCS_LIST	= main.c init.c hooks.c player.c utils.c \
-				parsing.c parsing2.c sprites.c draw.c \
+				parsing.c parsing2.c sprites.c draw.c texture_utils.c\
 				render/color.c render/raycast.c \
 				render/render.c render/utils.c render/textures.c
 SRCS		= $(addprefix $(SRC_DIR)/, $(SRCS_LIST))

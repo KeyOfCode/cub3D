@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:10:57 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/11 09:31:40 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:34:08 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@
 # define SPEED		10.0
 # define LERP		0.2
 # define SYMBOLS	"01NSEW "
-# define TEX_WIDTH	683
-# define TEX_HEIGHT	384
+# define TEX_WIDTH	64
+# define TEX_HEIGHT	64
+// # define TEX_WIDTH	683
+// # define TEX_HEIGHT	384
 # define TEX_SIZE	64
 
 # define BPX 64
@@ -82,7 +84,7 @@ typedef struct s_texture
 {
 	char				*name;
 	char				*path;
-	char				symbol;
+	int					symbol;
 	int					size;
 	int					nb;
 	int					type;
@@ -203,13 +205,15 @@ void	ft_cub_error(int type);
 
 int		init_game(t_game *game);
 int		init_map(int argc, char *argv[], t_game *game);
-int		init_texture_lst(t_game *game);
+int		parser(t_game *game);
 void	init_player(t_player *player);
 void	init_sprites(t_game *game);
-int		find_player_pos(t_game *game);
+// int		find_player_pos(t_game *game);
 
 /* Textures */
 char	*path_to_sprite(char *sprite_name, int nb);
+void	ft_texture_addback(t_texture **lst, t_texture *new);
+void	ft_texture_free(t_texture *texture);
 
 /* Draw */
 void	draw_block(int x, int y, int type, t_game *game);
@@ -228,18 +232,16 @@ void	exit_game(t_game *game);
 
 int		open_map(char *relative_path, t_game *game);
 int		fill_lst(t_game *game);
-int		convert_lst(t_game *game);
 int		is_enclosed(t_game *game);
 int		allowed_char(t_game *game);
-int		sides_is_wall(t_game *game);
 int		required_char(t_game *game);
-int		path_to_exit(t_game *game);
+// int		sides_is_wall(t_game *game);
+// int		path_to_exit(t_game *game);
 
 /* Player */
 int		movement(t_game *game, t_player *player, int sign, char cross);
 void	rotation(t_player *player, int dir);
-void	ft_player_init_pos(t_player *player, char dir,
-			int x, int y);
+void	ft_player_init_pos(t_game *game, char dir, int x, int y);
 // void	collision(t_game *game, t_player *player);
 
 //Render

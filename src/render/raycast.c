@@ -75,9 +75,12 @@ static void	ft_dda(t_game *game, t_ray *ray)
 			ray->map.y += ray->step.y;
 			ray->side = 1;
 		}
+/* 		ft_printf_fd(2, "map_y %d, map_x %d\n", ray->map.y, ray->map.x); */
+		// ft_printf_fd(2, "player y %d, player x %d\n",
+			// (int)game->player->pos.y, (int)game->player->pos.x);
 		if (game->map[(int)ray->map.y][(int)ray->map.x] > '0')
 		{
-			ft_printf_fd(2, "ft_dda error\n");
+			// ft_printf_fd(2, "ft_dda success\n");
 /* 			printf("%f %f\n", ray->sidedist.x, ray->sidedist.y); */
 /* 			printf("%d %d %c\n", (int)ray->map.y, (int)ray->map.x, game->map[(int)ray->map.y][(int)ray->map.x]); */
 			hit = 1;
@@ -120,9 +123,9 @@ int ft_raycast(t_game *game, t_ray *ray, uint32_t **pixel_data)
 		ft_init_ray(ray, game->player, x);
 		ft_set_step_directions(ray, game->player);
 		ft_dda(game, ray);
-		ft_printf_fd(2, "ft_raycast error\n");
 		ft_calculate_line_height(ray, game->player);
 		ft_register_pixels(ray, game, pixel_data, x);
+		// ft_printf_fd(2, "ft_raycast succes\n");
 		x++;
 	}
 	return (EXIT_SUCCESS);
