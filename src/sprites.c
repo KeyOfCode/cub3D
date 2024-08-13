@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 13:36:17 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/13 12:59:48 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/13 13:09:13 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,23 @@ void	load_textures(char *sprite_name, int nb_sprite,
 {
 	static int	type = -1;
 	int			index;
-	char		*path;
 	int			fd;
 
 	index = -1;
 	textures->sprites = ft_calloc(nb_sprite, sizeof(mlx_texture_t *));
 	while (++index < nb_sprite)
 	{
-		path = path_to_sprite(sprite_name, index);
-		fd = open(path, O_RDONLY);
+		fd = open(textures->path, O_RDONLY);
 		if (fd < 0)
 			ft_cub_error("texture failed to load");
 		close(fd);
-		ft_printf_fd(2, "texture %s loading\n", textures->name);
-		ft_printf_fd(2, "path %s \n", textures->path);
-		// textures->sprites[index] = mlx_load_png("./textures/wall/NO_0.png");
-		textures->sprites[index] = mlx_load_png(path);
-		free(path);
+		textures->sprites[index] = mlx_load_png(textures->path);
 	}
 	textures->type = ++type;
 }
+
+	// ft_printf_fd(2, "texture %s loading\n", textures->name);
+	// ft_printf_fd(2, "path %s \n", textures->path);
 
 void	init_sprites(t_game *game)
 {
