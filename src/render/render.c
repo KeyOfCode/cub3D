@@ -6,13 +6,11 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 12:12:04 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/12 16:30:36 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/13 12:55:05 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
-
-// int	get_rgba(int r, int g, int b, int a);
 
 static void	ft_init_ray(t_ray *ray)
 {
@@ -43,23 +41,27 @@ static void	ft_clean_image(mlx_image_t *image)
 	while (i < (WIDTH * HEIGHT * 4 - 1))
 	{
 		image->pixels[i] = 0;
-		i++;	
+		i++;
 	}
 }
 
-static void	set_pixel(uint32_t **pixel_data, mlx_image_t *image, int x, int y)
+static void	set_pixel(uint32_t **pixel_data, t_game *game, int x, int y)
 {
 	int	ceiling;
 	int	floor;
 
-	floor = get_rgba(205, 225, 254, 255);
-	ceiling = get_rgba(255,248,220,255);
+	// floor = get_rgba(205, 225, 254, 255);
+	// ceiling = get_rgba(255, 248, 220, 255);
+	floor = get_rgba(game->floor[0], game->floor[1],
+			game->floor[2], game->floor[3]);
+	ceiling = get_rgba(game->ceiling[0], game->ceiling[1],
+			game->ceiling[2], game->ceiling[3]);
 	if (pixel_data[y][x] > 0)
-		mlx_put_pixel(image, x, y, pixel_data[y][x]);
+		mlx_put_pixel(game->img, x, y, pixel_data[y][x]);
 	else if (y > HEIGHT / 2)
-		mlx_put_pixel(image, x, y, ceiling);
+		mlx_put_pixel(game->img, x, y, ceiling);
 	else if (y < HEIGHT / 2)
-		mlx_put_pixel(image, x, y, floor);
+		mlx_put_pixel(game->img, x, y, floor);
 }
 
 static void	ft_render_frame(t_game *game, uint32_t **pixels)
@@ -67,14 +69,14 @@ static void	ft_render_frame(t_game *game, uint32_t **pixels)
 	int				x;
 	int				y;
 
-	ft_clean_image(*game->img);
+	ft_clean_image(game->img);
 	y = 0;
 	while (y < HEIGHT)
 	{
 		x = 0;
 		while (x < WIDTH)
 		{
-			set_pixel(pixels, *game->img, x, y);
+			set_pixel(pixels, game, x, y);
 			x++;
 		}
 		y++;
@@ -83,34 +85,28 @@ static void	ft_render_frame(t_game *game, uint32_t **pixels)
 
 static uint32_t	**ft_init_pixels(void)
 {
-	uint32_t	**result; 
-	int	i;
+	uint32_t	**result;
+	int			i;
 
-	result = ft_calloc(HEIGHT,
-			sizeof(int **));
-/* 	if (!result)
-		ft_exit_error(game); */
+	result = ft_calloc(HEIGHT, sizeof(int **));
 	i = 0;
 	while (i < HEIGHT)
 	{
 		result[i] = ft_calloc(WIDTH + 1,
 				sizeof (uint32_t *));
-		/* 	if (!result[i])
-			ft_exit_error(game); */
 		i++;
 	}
 	return (result);
 }
 
-int ft_render(t_game *game)
+int	ft_render(t_game *game)
 {
 	uint32_t	**pixel_data;
-	t_ray 		ray;
+	t_ray		ray;
 
 	pixel_data = ft_init_pixels();
 	ft_init_ray(&ray);
 	ft_raycast(game, &ray, pixel_data);
-	// ft_printf_fd(2, "Segfaults!\n");
 	ft_render_frame(game, pixel_data);
 	return (EXIT_SUCCESS);
 }

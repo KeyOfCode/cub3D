@@ -6,17 +6,27 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:47:11 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/07 10:49:25 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/13 10:36:00 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	skip_spaces(char *str, int *i)
+int	max_width(int width)
+{
+	static int	old = -1;
+
+	if (width < old)
+		width = old;
+	old = width;
+	return (width);
+}
+
+/* void	skip_spaces(char *str, int *i)
 {
 	while (str[*i] == ' ')
 		*i += 1;
-}
+} */
 
 float	lerp(float a, float b, float f)
 {

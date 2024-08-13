@@ -6,21 +6,11 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:53:35 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/12 15:29:39 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/13 13:01:47 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	max_width(int width)
-{
-	static int	old = -1;
-
-	if (width < old)
-		width = old;
-	old = width;
-	return (width);
-}
 
 int	fill_lst(t_game *game)
 {
@@ -89,12 +79,33 @@ int	store_texture(t_game *game, t_list *lst)
 	stop = i + 1;
 	while (line[++i] != '\n')
 		;
-	head->path = ft_substr(line, stop, i);
+	head->path = ft_substr(line, stop, i - 3);
 	if (!head->name || !head->path)
 		return (ft_texture_free(head), 0);
+	ft_texture_addback(&game->textures, head);
+	return (1);
+}
+
 	// ft_printf_fd(2, "\tname: %s\n", head->name);
 	// ft_printf_fd(2, "\tpath: %s\n\n", head->path);
-	ft_texture_addback(&game->textures, head);
+
+int	store_color(int color[4], t_list *lst)
+{
+	int		i;
+	char	**values;
+	char	*start;
+
+	i = -1;
+	start = ft_strchr(lst->content, ' ');
+	values = ft_split(start, ',');
+	while (++i < 4)
+	{
+		if (values[i])
+			color[i] = ft_atoi(values[i]);
+		if (!color[i])
+			color[i] = 0;
+		ft_printf_fd(2, "color[%d]: %d\n", i, color[i]);
+	}
 	return (1);
 }
 
@@ -137,6 +148,10 @@ int	parser(t_game *game)
 			return (0);
 		lst = lst->next;
 	}
+	store_color(game->floor, lst);
+	lst = lst->next;
+	store_color(game->ceiling, lst);
+	lst = lst->next;
 	if (!store_map(game, lst))
 		return (0);
 	return (1);

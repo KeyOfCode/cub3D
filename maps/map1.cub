@@ -2,8 +2,8 @@ NO ../textures/wall/other_0.png
 SO ../textures/wall/other_1.png
 WE ../textures/wall/other_2.png
 EA ../textures/wall/other_3.png
-F 220,100,0
-C 225,30,0
+F 196,74,65
+C 68,133,173
 111111
 100101
 100001

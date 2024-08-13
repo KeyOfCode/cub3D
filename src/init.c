@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 09:53:40 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/12 15:47:44 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/13 11:31:53 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	init_game(t_game *game)
 	game->player = ft_calloc(sizeof(t_player), 1);
 	if (!game->player)
 		exit(EXIT_FAILURE);
-	game->img[0] = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	if (!game->img[0])
+	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	if (!game->img)
 		return (mlx_close_window(game->mlx),
 			puts(mlx_strerror(mlx_errno)), EXIT_FAILURE);
 	game->lst_map = NULL;
@@ -64,32 +64,24 @@ void	init_player(t_player *player)
 int	init_map(int argc, char *argv[], t_game *game)
 {
 	if (argc != 2)
-		ft_cub_error(1);
+		ft_cub_error("Invalid number of arguments");
 	if (!open_map(argv[1], game))
-		ft_cub_error(2);
-	// ft_error("Parser");
+		ft_cub_error("Can't open map.");
 	if (!parser(game))
-		ft_cub_error(3);
-	// ft_error("Parser Finished");
-	// ft_error("Is Enclosed");
+		ft_cub_error("Parser failure.");
 	if (!is_enclosed(game))
-		ft_cub_error(3);
-	// ft_error("Is Enclosed Finished");
-	// ft_error("Allowed Char");
+		ft_cub_error("Map is not in a valid format.");
 	if (!allowed_char(game))
-		ft_cub_error(3);
-	// ft_error("Allowed Char Finished");
-	// ft_error("Required Char");
+		ft_cub_error("Map is not in a valid format.");
 	if (!required_char(game))
-		ft_cub_error(3);
-	// ft_error("Required Char Finished");
+		ft_cub_error("Map is not in a valid format.");
 	return (1);
 }
 
 /* 
 ft_error("Textures Init");
 	if (!init_texture_lst(game))
-		ft_cub_error(5);
+		ft_cub_error();
 	ft_error("Textures Init Finished");
 	ft_error("Map Init");
 	if (!fill_lst(game))

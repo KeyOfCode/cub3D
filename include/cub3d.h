@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:10:57 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/12 16:34:08 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/13 11:28:47 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ typedef enum s_sprites
 	SO,
 	EA,
 	WE,
-	FLOOR,
-	CEIL,
 	IMG_COUNT
 }	t_sprites;
 
@@ -74,9 +72,9 @@ typedef enum dirs
  * @param name 		: texture name.
  * @param path 		: texture path.
  * @param symbol 	: texture symbol in map.
+ * @param type		: texture enum t_sprites code.
  * @param size	 	: pixel size.
  * @param nb		: number of stored sprites. Min 1.
- * @param type		: texture enum t_sprites code.
  * @param sprites 	: stored mlx_textures. Can store animated sprites.
  * @param next		: pointer to next texture. (Could be removed).
  */
@@ -84,10 +82,10 @@ typedef struct s_texture
 {
 	char				*name;
 	char				*path;
-	int					symbol;
+	char				symbol;
+	int					type;
 	int					size;
 	int					nb;
-	int					type;
 	mlx_texture_t		**sprites;
 	struct s_texture	*next;
 }	t_texture;
@@ -173,7 +171,7 @@ typedef struct s_rend
 typedef struct s_game
 {
 	mlx_t				*mlx;
-	mlx_image_t			*img[IMG_COUNT];
+	mlx_image_t			*img;
 	int					*buff_tex[IMG_COUNT];
 	char				**map_buff;
 	int					max_width;
@@ -186,6 +184,8 @@ typedef struct s_game
 	t_texture			*textures;
 	t_player			*player;
 	int					ply_pos[2];
+	int					ceiling[4];
+	int					floor[4];
 	t_ray				ray;
 }	t_game;
 
@@ -197,68 +197,57 @@ typedef struct s_game
 // 	wall2
 // }	t_others;
 
-void	hooks(mlx_key_data_t keydata, void *param);
-
-void	ft_cub_error(int type);
+void			hooks(mlx_key_data_t keydata, void *param);
+void			ft_cub_error(char *err);
 
 /* Init */
 
-int		init_game(t_game *game);
-int		init_map(int argc, char *argv[], t_game *game);
-int		parser(t_game *game);
-void	init_player(t_player *player);
-void	init_sprites(t_game *game);
-// int		find_player_pos(t_game *game);
+int				init_game(t_game *game);
+int				init_map(int argc, char *argv[], t_game *game);
+int				parser(t_game *game);
+void			init_player(t_player *player);
+void			init_sprites(t_game *game);
+// int				find_player_pos(t_game *game);
 
 /* Textures */
-char	*path_to_sprite(char *sprite_name, int nb);
-void	ft_texture_addback(t_texture **lst, t_texture *new);
-void	ft_texture_free(t_texture *texture);
-
-/* Draw */
-void	draw_block(int x, int y, int type, t_game *game);
-void	erase_block(t_game *game, mlx_texture_t *sprite);
-void	draw_walls(t_game *game);
-void	draw_player(t_game *game);
-int		change_player_dir(t_game *game, char dir);
-void	draw_other(t_game *game);
+char			*path_to_sprite(char *sprite_name, int nb);
+void			ft_texture_addback(t_texture **lst, t_texture *new);
+void			ft_texture_free(t_texture *texture);
 
 /* Hooks */
 
-void	hook_register(t_game *game);
-void	exit_game(t_game *game);
+void			hook_register(t_game *game);
+void			exit_game(t_game *game);
 
 /* Parsing */
 
-int		open_map(char *relative_path, t_game *game);
-int		fill_lst(t_game *game);
-int		is_enclosed(t_game *game);
-int		allowed_char(t_game *game);
-int		required_char(t_game *game);
-// int		sides_is_wall(t_game *game);
-// int		path_to_exit(t_game *game);
+int				open_map(char *relative_path, t_game *game);
+int				fill_lst(t_game *game);
+int				is_enclosed(t_game *game);
+int				allowed_char(t_game *game);
+int				required_char(t_game *game);
 
 /* Player */
-int		movement(t_game *game, t_player *player, int sign, char cross);
-void	rotation(t_player *player, int dir);
-void	ft_player_init_pos(t_game *game, char dir, int x, int y);
-// void	collision(t_game *game, t_player *player);
+int				movement(t_game *game, t_player *player, int sign, char cross);
+void			rotation(t_player *player, int dir);
+void			ft_player_init_pos(t_game *game, char dir, int x, int y);
+// void			collision(t_game *game, t_player *player);
 
-//Render
-int		ft_render(t_game *game);
-int		ft_raycast(t_game *game, t_ray *ray, uint32_t **pixel_data);
-void	ft_register_pixels(t_ray *ray, t_game *game,
-			uint32_t **pixel_data, int x);
+/* Render */
+int				ft_render(t_game *game);
+int				ft_raycast(t_game *game, t_ray *ray, uint32_t **pixel_data);
+void			ft_register_pixels(t_ray *ray, t_game *game,
+					uint32_t **pixel_data, int x);
 uint32_t		ft_get_color(mlx_texture_t *texture, int pos_x, int pos_y);
 unsigned int	get_rgba(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
 
 /* Utils */
-// void	fps(t_game *game);
-void	resize_map(t_game *game);
-int		ft_2darr_len(void **arr);
-void	ft_2darrfree(void **arr);
-float	to_rad(float degree);
-float	lerp(float a, float b, float f);
-void	skip_spaces(char *str, int *i);
+int				max_width(int width);
+void			resize_map(t_game *game);
+int				ft_2darr_len(void **arr);
+void			ft_2darrfree(void **arr);
+float			to_rad(float degree);
+float			lerp(float a, float b, float f);
+void			skip_spaces(char *str, int *i);
 
 #endif

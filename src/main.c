@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 10:15:50 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/12 16:45:39 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/13 12:20:27 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,10 @@
 	system("leaks -q so_long");
 } */
 
-void	ft_cub_error(int type)
+void	ft_cub_error(char *err)
 {
-	if (type == 1)
-		ft_error("Error \nIncorrect number of arguments!");
-	if (type == 2)
-		ft_error("Error \nUnable to open the map!");
-	if (type == 3)
-		ft_error("Error \nThe map is not in a valid format!");
-	if (type == 4)
-		ft_error("Error \nA sprite could not be opened !");
-	if (type == 5)
-		ft_error("Error \nFATAL ERROR!");
+	ft_error("Error!");
+	ft_error(err);
 	exit(EXIT_SUCCESS);
 }
 
@@ -37,7 +29,7 @@ void	game_loop(void *param)
 	t_game		*game;
 
 	game = param;
-	mlx_image_to_window(game->mlx, *game->img, 0, 0);
+	mlx_image_to_window(game->mlx, game->img, 0, 0);
 	ft_render(game);
 	// (void)game;
 }
@@ -67,7 +59,7 @@ int	main(int argc, char **argv)
 		return (puts(mlx_strerror(mlx_errno)), EXIT_FAILURE);
 	init_player(game->player);
 	init_map(argc, argv, game);
-	// init_sprites(game);
+	init_sprites(game);
 	hook_register(game);
 	mlx_loop_hook(game->mlx, game_loop, game);
 	mlx_loop(game->mlx);
