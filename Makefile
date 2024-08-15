@@ -3,9 +3,9 @@
 ################################################################################
 
 NAME	:= cub3D
-CC		:= gcc
+CC		:= gcc -g
 RM 		:= rm -f
-FLAGS	:= -Wall -Wextra -Werror 
+FLAGS	:= -Wall -Wextra -Werror
 HEADERS	:= -I./include/ -I $(LIBMLX)/include
 LIBMLX  := ./MLX42
 MLX		:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
@@ -24,7 +24,7 @@ VAL_FLAGS=	--child-silent-after-fork=yes \
 ################################################################################
 
 SRC_DIR		= src
-SRCS_LIST	= main.c init.c hooks.c player.c utils.c \
+SRCS_LIST	= main.c init.c hooks.c player.c utils.c time.c\
 				parsing.c parsing2.c sprites.c draw.c texture_utils.c\
 				render/color.c render/raycast.c \
 				render/render.c render/render_utils.c \

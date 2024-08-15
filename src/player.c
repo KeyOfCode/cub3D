@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:47:30 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/12 16:45:20 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/15 10:20:26 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,15 +148,18 @@ int	movement(t_game *game, t_player *player, int sign, char cross)
 
 void	rotation(t_player *player, int dir)
 {
+	dir *= -1;
 	if (dir == 1)
 	{
 		player->yaw += player->rot_spd;
+		// player->yaw += lerp(player->yaw, player->yaw + 1, 0.1 * timestamp());
 		if (player->yaw >= 360)
 			player->yaw -= 360;
 	}
 	else if (dir == -1)
 	{
 		player->yaw -= player->rot_spd;
+		// player->yaw -= lerp(player->yaw, player->yaw - 1, 0.1 * timestamp());
 		if (player->yaw <= 360)
 			player->yaw += 360;
 	}

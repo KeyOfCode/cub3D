@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 11:28:52 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/23 13:17:52 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:53:50 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,28 +70,28 @@ char	*clean_stash(char **stash)
 	return (line);
 }
 
-/* char	*get_next_line(int fd)
-{
-	static char		*stash = NULL;
-	char			*line;
-	char			buf[BUFFER_SIZE + 1];
-	int				check;
-	int				break_read;
+// char	*get_next_line(int fd)
+// {
+// 	static char		*stash = NULL;
+// 	char			*line;
+// 	char			buf[BUFFER_SIZE + 1];
+// 	int				check;
+// 	int				break_read;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &stash, 0) < 0)
-		return (free_memory(&stash));
-	break_read = 0;
-	while (!break_read)
-	{
-		check = (int)read(fd, buf, BUFFER_SIZE);
-		if (check < 0)
-			return (free_memory(&stash));
-		buf[check] = '\0';
-		line = ft_join_free(stash, buf, 1);
-		if (found_newline(buf, BUFFER_SIZE) || check < BUFFER_SIZE)
-			break_read = 1;
-		// free_memory(stash);
-		stash = line;
-	}
-	return (clean_stash(&stash));
-} */
+// 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &stash, 0) < 0)
+// 		return (free_memory(&stash));
+// 	break_read = 0;
+// 	while (!break_read)
+// 	{
+// 		check = (int)read(fd, buf, BUFFER_SIZE);
+// 		if (check < 0)
+// 			return (free_memory(&stash));
+// 		buf[check] = '\0';
+// 		line = ft_join_free(stash, buf, 1);
+// 		if (found_newline(buf, BUFFER_SIZE) || check < BUFFER_SIZE)
+// 			break_read = 1;
+// 		// free_memory(stash);
+// 		stash = line;
+// 	}
+// 	return (clean_stash(&stash));
+// }

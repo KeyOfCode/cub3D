@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:47:11 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/13 10:36:00 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/15 10:17:43 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	max_width(int width)
 		*i += 1;
 } */
 
-float	lerp(float a, float b, float f)
+double	lerp(double a, double b, double f)
 {
 	return (a * (1.0 - f) + (b * f));
 }

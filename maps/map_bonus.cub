@@ -1,7 +1,7 @@
-NO ./assets/crystal.xpm
-SO ./assets/crystal_imac.xpm
-WE ./assets/crystal_box.xpm
-EA ./assets/crystal_sign.xpm
+NO ./textures/wall/NO_0.png
+SO ./textures/wall/SO_0.png
+WE ./textures/wall/WE_0.png
+EA ./textures/wall/EA_0.png
 F 0,0,0
 C 0,0,0
 111111111111111

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   render_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 12:26:27 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/07 12:29:57 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/15 10:22:53 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	ft_init_dirs(t_game *game)
 {
-	t_player *player = game->player;
+	t_player	*player;
 
+	player = game->player;
 	player->dir.x = cos(to_rad(player->yaw));
 	player->dir.y = sin(to_rad(player->yaw));
 	player->fov.x = player->dir.y * 0.66;

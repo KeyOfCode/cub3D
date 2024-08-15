@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:10:57 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/13 11:28:47 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/15 10:14:31 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@
 # define WIDTH 		1280
 # define HEIGHT 	720
 # define FOV		60
-# define ROT_SPD	0.045
+# define ROT_SPD	1
+// # define ROT_SPD	0.045
 # define SPEED		10.0
 # define LERP		0.2
 # define SYMBOLS	"01NSEW "
@@ -247,7 +248,8 @@ void			resize_map(t_game *game);
 int				ft_2darr_len(void **arr);
 void			ft_2darrfree(void **arr);
 float			to_rad(float degree);
-float			lerp(float a, float b, float f);
-void			skip_spaces(char *str, int *i);
+double			lerp(double initial, double final, double step);
+
+uint64_t		timestamp(void);
 
 #endif

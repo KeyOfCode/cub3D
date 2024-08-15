@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   textures.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/15 10:22:12 by darismen          #+#    #+#             */
+/*   Updated: 2024/08/15 10:22:16 by darismen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <cub3d.h>
 
 mlx_texture_t	*set_texture(t_texture *textures, int symb)
@@ -21,7 +33,6 @@ static void	ft_get_texture(t_ray *ray, t_game *game)
 	t_texture	*textures;
 
 	textures = game->textures;
-	// ft_error("Ft_get_texture");
 	if (ray->side == 0)
 	{
 		if (ray->dir.x < 0)
@@ -36,8 +47,10 @@ static void	ft_get_texture(t_ray *ray, t_game *game)
 		else
 			ray->texture = set_texture(textures, NO);
 	}
-	ft_error("Ft_get_texture success");
 }
+
+	// ft_error("Ft_get_texture");
+	// ft_error("Ft_get_texture success");
 
 /* static void	ft_get_texture(t_ray *ray, t_game *game)
 {
