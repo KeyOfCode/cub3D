@@ -6,13 +6,13 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 11:28:52 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/15 11:51:30 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/15 12:04:54 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*get_next_line(int fd)
+/* char	*get_next_line(int fd)
 {
 	int		index;
 	int		bytes;
@@ -35,7 +35,7 @@ char	*get_next_line(int fd)
 		return (free(buffer), NULL);
 	buffer[index] = '\0';
 	return (buffer);
-}
+} */
 
 /* char	*get_next_line(int fd)
 {

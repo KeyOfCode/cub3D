@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 12:12:04 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/15 11:58:05 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:35:55 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ static void	set_pixel(uint32_t **pixel_data, t_game *game, int x, int y)
 	// floor = get_rgba(205, 225, 254, 255);
 	// ceiling = get_rgba(255, 248, 220, 255);
 	floor = get_rgba(game->floor[0], game->floor[1],
-			game->floor[2], game->floor[3]);
+			game->floor[2], 255);
 	ceiling = get_rgba(game->ceiling[0], game->ceiling[1],
-			game->ceiling[2], game->ceiling[3]);
+			game->ceiling[2], 255);
 	if (pixel_data[y][x] > 0)
 		mlx_put_pixel(game->img, x, y, pixel_data[y][x]);
 	else if (y > HEIGHT / 2)

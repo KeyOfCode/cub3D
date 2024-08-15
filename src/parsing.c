@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:53:35 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/15 11:57:23 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:28:22 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	fill_lst(t_game *game)
 	while (line)
 	{
 		line = get_next_line(game->map_fd);
-		// printf("line: %s\n", line);
 		if (line == NULL && game->lst_map != NULL)
 			return (1);
 		game->max_width = max_width((int)ft_strlen(line) - 1);
@@ -28,12 +27,10 @@ int	fill_lst(t_game *game)
 			return (0);
 		ft_lstadd_back(&(game->lst_map), ft_lstnew(line));
 	}
-	// if (line)
-	// 	free(line);
 	return (1);
 }
 
-/* int	init_texture_lst(t_game *game)
+int	init_texture_lst(t_game *game)
 {
 	t_texture	*head;
 	char		*line;
@@ -60,7 +57,7 @@ int	fill_lst(t_game *game)
 		free(line);
 	}
 	return (1);
-} */
+}
 
 int	store_texture(t_game *game, t_list *lst)
 {
@@ -105,10 +102,7 @@ int	store_color(int color[4], t_list *lst)
 			color[i] = ft_atoi(values[i]);
 		if (!color[i])
 			color[i] = 0;
-		// ft_printf_fd(2, "color[%d]: %d\n", i, color[i]);
 	}
-	// free(start);
-	// free(values);
 	return (1);
 }
 

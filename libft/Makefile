@@ -6,7 +6,7 @@
 #    By: darismen <darismen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/19 11:41:39 by darismen          #+#    #+#              #
-#    Updated: 2024/07/23 10:49:09 by darismen         ###   ########.fr        #
+#    Updated: 2024/08/15 13:09:42 by darismen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,9 @@ FILES=	ft_isalnum.c ft_isalpha.c ft_isdigit.c ft_isascii.c ft_isprint.c \
 				ft_lstiter.c		\
 				ft_lstmap.c			\
 		ft_printf.c ft_putchar.c ft_putstr.c ft_putnbr.c ft_printf_util.c \
-		get_next_line.c gnl.c ft_putnbr_base_fd.c \
+		ft_putnbr_base_fd.c \
+		# get_next_line_encheng.c \
+		# get_next_line.c gnl.c \
 
 
 SRCS= $(addprefix src/, ${FILES})

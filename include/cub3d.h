@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:10:57 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/15 10:14:31 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/15 12:17:32 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,6 +249,7 @@ int				ft_2darr_len(void **arr);
 void			ft_2darrfree(void **arr);
 float			to_rad(float degree);
 double			lerp(double initial, double final, double step);
+char			*get_next_line(int fd);
 
 uint64_t		timestamp(void);
 

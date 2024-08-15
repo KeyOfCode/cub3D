@@ -1,16 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line copy.c                               :+:      :+:    :+:   */
+/*   get_next_line_encheng.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 11:28:52 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/23 13:18:51 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:17:12 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "cub3d.h"
+
+char	*ft_strjoin_alt(char *s1, char *s2, int length);
+
+char	*ft_clean(char	*pointer)
+{
+	free(pointer);
+	pointer = NULL;
+	return (NULL);
+}
 
 static char	*ft_stj_f(char **to_free, char *buf, int length)
 {
@@ -32,11 +41,11 @@ static char	*ft_fill_buffer(int fd, char **save)
 	int		bytes_read;
 
 	bytes_read = 1;
-	buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	buf = ft_calloc(sizeof(char), (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
 	buf[BUFFER_SIZE] = '\0';
-	while (!ft_strcontains(*save, '\n') && bytes_read > 0)
+	while (!ft_strchr(*save, '\n') && bytes_read > 0)
 	{
 		bytes_read = read(fd, buf, BUFFER_SIZE);
 		if (bytes_read == BUFFER_SIZE)
@@ -81,7 +90,7 @@ char	*ft_extract_line(char **save, char *line)
 	char	*aux;
 
 	aux = ft_strchr(*save, '\n');
-	if (ft_strcontains(*save, '\n'))
+	if (ft_strrchr(*save, '\n'))
 	{
 		if (aux != *save)
 			line = ft_strjoin_alt(*save, line, ((aux - *save) + 1 + 1));
@@ -129,7 +138,7 @@ char	*ft_strjoin_alt(char *s1, char *s2, int length)
 
 	j = 0;
 	i = 0;
-	result = (char *)malloc(sizeof(char) * (length + 1));
+	result = ft_calloc(sizeof(char), (length + 1));
 	if (!result)
 		return (NULL);
 	while (s1 && s1[i] && i < (length - 1))

@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 11:41:05 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/23 13:15:12 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:27:03 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void			*ft_memcpy(void *dest, const void *src, size_t size);
 	The two strings may overlap; */
 void			*ft_memmove(void *dest, const void *src, unsigned int len);
 /* Copies up to dstsize - 1 characters from the string src to dst*/
-size_t			ft_strlcpy(char *dest, char *src, size_t size);
+size_t			ft_strlcpy(char *dst, const char *src, size_t size);
 /* Locates the first occurrence of c in string s. 
 	Returns a pointer to the byte located, 
 	or NULL if no such byte exists within n
@@ -62,7 +62,7 @@ void			*ft_memchr(const void *s, int c, size_t n);
 	Both strings are assumed to be n bytes long. */
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
 /* Appends string src to the end of dst. */
-unsigned int	ft_strlcat(char *dest, char *src, unsigned int size);
+unsigned int	ft_strlcat(char *dest, const char *src, unsigned int size);
 /* Converts a lower-case letter to the corresponding upper-case letter. */
 int				ft_toupper(int str);
 /* Converts an upper-case letter to the corresponding lower-case letter. */
@@ -91,7 +91,7 @@ char			*ft_strndup(const char *s1, size_t n);
 /* ************************************************************************** */
 
 char			*ft_substr(char const *s, unsigned int start, size_t len);
-char			*ft_strjoin(char const *s1, char const *s2);
+char			*ft_strjoin(char *s1, char *s2);
 char			*ft_join_free(char *s1, char *s2, int f);
 char			*ft_strtrim(char const *s1, char const *set);
 char			**ft_split(char const *s, char c);

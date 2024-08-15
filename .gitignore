@@ -11,3 +11,5 @@ test.c
 *-workspace
 cub3D
 debug
+val
+valgrind.rpt

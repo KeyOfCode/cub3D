@@ -3,35 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 10:46:22 by darismen          #+#    #+#             */
-/*   Updated: 2024/03/19 15:00:08 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:25:38 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dest, char *src, size_t size)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	size_t	n;
-	size_t	srclen;
+	size_t	srcsize;
+	size_t	index;
 
-	n = 0;
-	srclen = 0;
-	while (src[srclen] != '\0')
-		srclen++;
+	index = 0;
+	srcsize = ft_strlen(src);
+	if (!dst || !src)
+		return (0);
 	if (size != 0)
 	{
-		while (n < size - 1 && src[n] != '\0')
+		while (src[index] && index < (size - 1))
 		{
-			dest[n] = src[n];
-			n++;
+			dst[index] = src[index];
+			index++;
 		}
-		dest[n] = '\0';
+		dst[index] = '\0';
 	}
-	return (srclen);
+	return (srcsize);
 }
+
+// size_t	ft_strlcpy(char *dest, char *src, size_t size)
+// {
+// 	size_t	n;
+// 	size_t	srclen;
+
+// 	n = 0;
+// 	srclen = 0;
+// 	while (src[srclen] != '\0')
+// 		srclen++;
+// 	if (size != 0)
+// 	{
+// 		while (n < size - 1 && src[n] != '\0')
+// 		{
+// 			dest[n] = src[n];
+// 			n++;
+// 		}
+// 		dest[n] = '\0';
+// 	}
+// 	return (srclen);
+// }
 
 /* 
 #include <stdlib.h>

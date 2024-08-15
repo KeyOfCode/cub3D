@@ -6,11 +6,12 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 11:28:52 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/15 11:53:50 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:20:17 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+// #include "get_next_line.h"
+#include "cub3d.h"
 
 char	*free_memory(char **s)
 {
@@ -39,7 +40,7 @@ int	newline(char *line)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	while (line[i] && line[i] != '\n')
 		i++;
 	if (line[i] == '\n')
@@ -70,28 +71,27 @@ char	*clean_stash(char **stash)
 	return (line);
 }
 
-// char	*get_next_line(int fd)
-// {
-// 	static char		*stash = NULL;
-// 	char			*line;
-// 	char			buf[BUFFER_SIZE + 1];
-// 	int				check;
-// 	int				break_read;
+char	*get_next_line(int fd)
+{
+	static char		*stash = NULL;
+	char			*line;
+	char			buf[BUFFER_SIZE + 1];
+	int				check;
+	int				break_read;
 
-// 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &stash, 0) < 0)
-// 		return (free_memory(&stash));
-// 	break_read = 0;
-// 	while (!break_read)
-// 	{
-// 		check = (int)read(fd, buf, BUFFER_SIZE);
-// 		if (check < 0)
-// 			return (free_memory(&stash));
-// 		buf[check] = '\0';
-// 		line = ft_join_free(stash, buf, 1);
-// 		if (found_newline(buf, BUFFER_SIZE) || check < BUFFER_SIZE)
-// 			break_read = 1;
-// 		// free_memory(stash);
-// 		stash = line;
-// 	}
-// 	return (clean_stash(&stash));
-// }
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &stash, 0) < 0)
+		return (free_memory(&stash));
+	break_read = 0;
+	while (!break_read)
+	{
+		check = (int)read(fd, buf, BUFFER_SIZE);
+		if (check < 0)
+			return (free_memory(&stash));
+		buf[check] = '\0';
+		line = ft_join_free(stash, buf, 1);
+		if (found_newline(buf, BUFFER_SIZE) || check < BUFFER_SIZE)
+			break_read = 1;
+		stash = line;
+	}
+	return (clean_stash(&stash));
+}

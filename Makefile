@@ -28,7 +28,9 @@ SRCS_LIST	= main.c init.c hooks.c player.c utils.c time.c\
 				parsing.c parsing2.c sprites.c draw.c texture_utils.c\
 				render/color.c render/raycast.c \
 				render/render.c render/render_utils.c \
-				render/textures.c
+				render/textures.c \
+				get_next_line.c
+				# get_next_line_encheng.c
 SRCS		= $(addprefix $(SRC_DIR)/, $(SRCS_LIST))
   
 OBJS 		= $(SRCS:.c=.o)

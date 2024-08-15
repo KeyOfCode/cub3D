@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 09:53:40 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/15 11:49:33 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:33:05 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,18 @@ void	init_player(t_player *player)
 
 int	init_map(int argc, char *argv[], t_game *game)
 {
-	(void)argv;
-	(void)argc;
-	(void)game;
 	if (argc != 2)
 		ft_cub_error("Invalid number of arguments");
 	if (!open_map(argv[1], game))
 		ft_cub_error("Can't open map.");
 	if (!parser(game))
 		ft_cub_error("Parser failure.");
-	// if (!is_enclosed(game))
-	// 	ft_cub_error("Map is not enclosed.");
-	// if (!allowed_char(game))
-	// 	ft_cub_error("Has a character not allowed.");
-	// if (!required_char(game))
-	// 	ft_cub_error("Missing required characters.");
+	if (!is_enclosed(game))
+		ft_cub_error("Map is not enclosed.");
+	if (!allowed_char(game))
+		ft_cub_error("Has a character not allowed.");
+	if (!required_char(game))
+		ft_cub_error("Missing required characters.");
 	return (1);
 }
 

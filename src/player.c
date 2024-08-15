@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:47:30 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/15 10:20:26 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:53:09 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,43 +52,6 @@
 		pos->y += (player->speed * dir->y);
 } */
 
-void	ft_set_player_dir(t_game *game, char dir)
-{
-	if (dir == 'N')
-		game->player->yaw = 0;
-	else if (dir == 'E')
-		game->player->yaw = 90;
-	else if (dir == 'S')
-		game->player->yaw = 180;
-	else if (dir == 'W')
-		game->player->yaw = 270;
-}
-
-
-
-/* int	find_player_pos(t_game *game)
-{
-	int		i;
-	int		j;
-
-	i = -1;
-	while (game->map[++i])
-	{
-		j = -1;
-		while (game->map[i][++j])
-		{
-			if (ft_strchr("NSWE", game->map[i][j]))
-			{
-				game->player->pos.x = (double)j;
-				game->player->pos.y = (double)i;
-				ft_set_player_dir(game, game->map[i][j]);
-				return (1);
-			}
-		}
-	}
-	return (0);
-} */
-
 void	ft_player_init_pos(t_game *game, char dir, int x, int y)
 {
 	t_player	*player;
@@ -97,13 +60,13 @@ void	ft_player_init_pos(t_game *game, char dir, int x, int y)
 	player->pos.x = (double)x;
 	player->pos.y = (double)y;
 	if (dir == 'N')
-		player->yaw = 0;
-	else if (dir == 'E')
 		player->yaw = 90;
+	else if (dir == 'E')
+		player->yaw = 0;
 	else if (dir == 'S')
-		player->yaw = 180;
-	else if (dir == 'W')
 		player->yaw = 270;
+	else if (dir == 'W')
+		player->yaw = 180;
 }
 
 	// ft_printf_fd(2, "x %d, y %d\n", x, y);

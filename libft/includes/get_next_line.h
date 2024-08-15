@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 11:22:03 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/23 11:37:37 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:05:29 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <sys/uio.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 8
+#  define BUFFER_SIZE 10
 # endif
 
 char	*get_next_line(int fd);
