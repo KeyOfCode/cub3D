@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 13:36:17 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/13 13:09:13 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:59:26 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*path_to_sprite(char *sprite_name, int nb)
 * @param	nb_sprite : it points to each frame of their animations.
 * @param	fd : checks if the sprite exists.
 */
-void	load_textures(char *sprite_name, int nb_sprite,
+void	load_textures(int nb_sprite,
 		t_texture *textures)
 {
 	static int	type = -1;
@@ -64,7 +64,7 @@ void	init_sprites(t_game *game)
 	head = game->textures;
 	while (head)
 	{
-		load_textures(head->name, 1, head);
+		load_textures(1, head);
 		head = head->next;
 	}
 }
