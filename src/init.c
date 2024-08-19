@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 09:53:40 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/15 13:33:05 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/18 19:11:34 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,34 @@ void	init_player(t_player *player)
 	player->rot_spd = ROT_SPD;
 }
 
+void ft_print_map(t_game *game)
+{
+	t_texture *tex = game->textures;
+
+	// ft_printf_fd(1, "%s: %s\n", tex->name, tex->path);
+	while (tex)
+	{
+		ft_printf_fd(1, "%s: %s\n", tex->name, tex->path);
+		tex = tex->next;
+	}
+	ft_printf_fd(1, "Floor: ");
+	for (int i = 0; i < 3; i++)
+	{
+		ft_printf_fd(1, "%d, ", game->floor[i]);
+	}
+	ft_putendl_fd("", 2);
+	ft_printf_fd(1, "Ceiling: ");
+	for (int i = 0; i < 3; i++)
+	{
+		ft_printf_fd(1, "%d, ", game->floor[i]);
+	}
+	ft_putendl_fd("", 2);
+	for (int i = 0; i < game->g_height; i++)
+	{
+		ft_printf_fd(1, "[%d]: %s\n", i, game->map[i]);
+	}
+}
+
 int	init_map(int argc, char *argv[], t_game *game)
 {
 	if (argc != 2)
@@ -69,6 +97,7 @@ int	init_map(int argc, char *argv[], t_game *game)
 		ft_cub_error("Can't open map.");
 	if (!parser(game))
 		ft_cub_error("Parser failure.");
+	ft_print_map(game);
 	if (!is_enclosed(game))
 		ft_cub_error("Map is not enclosed.");
 	if (!allowed_char(game))

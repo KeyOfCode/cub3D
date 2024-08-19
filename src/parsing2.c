@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 22:49:44 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/12 15:46:58 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/19 13:25:13 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,23 @@ int	is_enclosed(t_game *game)
 			// ft_printf_fd(2, "split[%d][%d] == %c\n", j, len, split[j][len]);
 		// ft_printf_fd(2, "is_enclosed\n");
 
+void	ft_player_init_pos(t_game *game, char dir, int x, int y)
+{
+	t_player	*player;
+
+	player = game->player;
+	player->pos.x = (double)x;
+	player->pos.y = (double)y;
+	if (dir == 'N')
+		player->yaw = 90;
+	else if (dir == 'E')
+		player->yaw = 0;
+	else if (dir == 'S')
+		player->yaw = 270;
+	else if (dir == 'W')
+		player->yaw = 180;
+}
+
 int	required_char(t_game *game)
 {
 	int	i;
@@ -98,29 +115,9 @@ int	required_char(t_game *game)
 				if (++check == 1)
 					ft_player_init_pos(game, game->map[i][j], j, i);
 	}
-	// ft_printf_fd(2, " pos x %d, pos y %d\n",
-	// 	(int)game->player->pos.x, (int)game->player->pos.y);
 	if (check != 1)
 		return (0);
 	return (1);
 }
-
-/** @brief Make a copy of the game->map
- * 
- * 
- * @param map game->map
- * @return char** 
- */
-char	**ft_map_copy(char **map)
-{
-	char	**copy;
-	int		i;
-
-	copy = ft_calloc(ft_2darr_len((void **)map) + 1, sizeof(char *));
-	if (!copy)
-		return (0);
-	i = -1;
-	while (map[++i])
-		copy[i] = ft_strdup(map[i]);
-	return (copy);
-}
+	// ft_printf_fd(2, " pos x %d, pos y %d\n",
+	// 	(int)game->player->pos.x, (int)game->player->pos.y);

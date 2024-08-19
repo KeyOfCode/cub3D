@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:10:57 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/15 12:17:32 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/19 12:53:25 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define FOV		60
 # define ROT_SPD	1
 // # define ROT_SPD	0.045
-# define SPEED		10.0
+# define SPEED		1
 # define LERP		0.2
 # define SYMBOLS	"01NSEW "
 # define TEX_WIDTH	64

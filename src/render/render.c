@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 12:12:04 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/15 13:35:55 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/19 13:48:56 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,11 @@ int	ft_render(t_game *game)
 {
 	uint32_t	**pixel_data;
 	t_ray		ray;
+	// t_player	*player;
 
+	// player = game->player;
+	// if (game->map[(int)player->pos.y][(int)player->pos.x] == '1')
+	// 	return (EXIT_SUCCESS);
 	pixel_data = ft_init_pixels();
 	ft_init_ray(&ray);
 	ft_raycast(game, &ray, pixel_data);

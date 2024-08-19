@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 12:26:27 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/15 13:56:38 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/19 13:05:33 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ void	ft_init_dirs(t_game *game)
 	player->dir.y = -sin(to_rad(player->yaw));
 	player->fov.x = player->dir.y * -0.66;
 	player->fov.y = player->dir.x * 0.66;
+}
+
 	// printf("dir x: %f, dir y: %f, fov x: %f, fov y: %f\n",
 	// 	player->dir.x, player->dir.y, player->fov.x, player->fov.y);
-}
 
 /* void	ft_init_dirs(t_game *game)
 {
