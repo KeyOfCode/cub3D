@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:47:30 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/19 13:52:53 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/19 14:27:12 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,26 @@ int	collision(t_game *game, t_player *player, int sign, char cross)
 	(void)cross;
 	// printf("col_speed_x = %f, col_speed_y = %f\n",
 	// 	ceil(player->speed.x), ceil(player->speed.y));
-	printf("cross: %c\n", cross);
-	printf("col_pos_x = %f, col_pos_y = %f\n",
-		(pos->x + (dir->x * (player->speed.x) * sign)),
-		(pos->y + (dir->y * (player->speed.y) * sign)));
+	// printf("cross: %c\n", cross);
+	// printf("col_pos_x = %f, ",
+	// 	(pos->x + (dir->x * (player->speed.x) * sign)));
+	// printf("col_pos_y = %f\n",
+	// 	(pos->y + (dir->y * (player->speed.y) * sign)));
+	printf("new_map_x = %c\n", game->map
+	[(int)pos->y]
+	[(int)(pos->x + (dir->x * ceil(player->speed.x) * sign))]);
+	printf("new_map_y = %c\n", game->map
+	[(int)(pos->y + (dir->y * ceil(player->speed.y) * sign))]
+	[(int)(pos->x)]);
 	if (game->map
 		[(int)pos->y]
-		[(int)(pos->x + (dir->x * ceil(player->speed.x) * sign))] != '1')
-		return (0);
+		[(int)(pos->x + (dir->x * ceil(player->speed.x) * sign))] == '1')
+		return (1);
 	if (game->map
 		[(int)(pos->y + (dir->y * ceil(player->speed.y) * sign))]
-		[(int)(pos->x)] != '1')
-		return (0);
-	return (1);
+		[(int)(pos->x)] == '1')
+		return (1);
+	return (0);
 }
 
 	// ft_printf_fd(2, "x %d, y %d\n", x, y);
@@ -72,11 +79,11 @@ int	collision(t_game *game, t_player *player, int sign, char cross)
 		// player->speed.x += lerp(0.0, SPEED, 0.1) * sign;
 double	get_speed(t_player *player, int cross, int sign)
 {
-	(void)cross;
-	// if (ft_strchr("WS", cross))
-		player->speed.y += 0.2 * sign;
-	// else if (ft_strchr("AD", cross))
-		player->speed.x += 0.2 * sign;
+	// (void)cross;
+	if (ft_strchr("WS", cross))
+		player->speed.y = 0.2 * sign;
+	else if (ft_strchr("AD", cross))
+		player->speed.x = 0.2 * sign;
 	return (sqrt(pow(player->speed.y, 2) + pow(player->speed.x, 2)));
 }
 
@@ -84,19 +91,19 @@ int	movement(t_game *game, t_player *player, int sign, char cross)
 {
 	t_vec2d	*pos;
 	t_vec2d	*dir;
-	double	speed;
+	// double	speed;
 
 	(void)game;
 	pos = &player->pos;
 	dir = &player->dir;
-	// printf("speed_x = %f, speed_y = %f\n",
-		// (player->speed.x), (player->speed.y));
-	speed = get_speed(player, cross, sign);
-	printf("collision: %d\n",collision(game, player, sign, cross));
+	get_speed(player, cross, sign);
+	printf("speed_x = %f, speed_y = %f\n",
+		(player->speed.x), (player->speed.y));
+	printf("collision: %d\n", collision(game, player, sign, cross));
 	if (!collision(game, player, sign, cross))
 	{
-		pos->x += (speed * dir->x * sign);
-		pos->y += (speed * dir->y * sign);
+		pos->x += (player->speed.x * dir->x * sign);
+		pos->y += (player->speed.y * dir->y * sign);
 	}
 	return (0);
 }
@@ -155,15 +162,15 @@ void	rotation(t_player *player, int dir)
 	dir *= -1;
 	if (dir == 1)
 	{
-		player->yaw += player->rot_spd;
-		// player->yaw += lerp(player->yaw, player->yaw + 1, 0.1 * timestamp());
+		// player->yaw += ROT_SPD;
+		player->yaw += lerp(0, ROT_SPD, 0.1);
 		if (player->yaw >= 360)
 			player->yaw -= 360;
 	}
 	else if (dir == -1)
 	{
-		player->yaw -= player->rot_spd;
-		// player->yaw -= lerp(player->yaw, player->yaw - 1, 0.1 * timestamp());
+		// player->yaw -= ROT_SPD;
+		player->yaw -= lerp(0, ROT_SPD, 0.1);
 		if (player->yaw <= 360)
 			player->yaw += 360;
 	}

@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:10:57 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/19 12:53:25 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/19 14:05:43 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define WIDTH 		1280
 # define HEIGHT 	720
 # define FOV		60
-# define ROT_SPD	1
+# define ROT_SPD	5
 // # define ROT_SPD	0.045
 # define SPEED		1
 # define LERP		0.2
