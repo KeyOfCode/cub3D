@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 22:49:44 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/20 11:53:36 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:44:43 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ void	ft_player_init_pos(t_game *game, char dir, int x, int y)
 		player->yaw = 270;
 	else if (dir == 'W')
 		player->yaw = 180;
+	player->perp.x = cos(to_rad(player->yaw - 90));
+	player->perp.y = -sin(to_rad(player->yaw - 90));
 }
 
 int	required_char(t_game *game)

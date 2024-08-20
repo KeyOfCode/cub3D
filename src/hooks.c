@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 10:21:29 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/19 14:22:16 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:36:33 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ void	hooks(mlx_key_data_t keydata, void *param)
 		exit_game(game);
 	if (pressed)
 	{
-		printf("\nold_pos_x = %f, old_pos_y = %f old_map = %c\n",
-			game->player->pos.x, game->player->pos.y,
-			game->map[(int)game->player->pos.y][(int)game->player->pos.x]);
+		// printf("\nold_pos_x = %f, old_pos_y = %f old_map = %c\n",
+		// 	game->player->pos.x, game->player->pos.y,
+		// 	game->map[(int)game->player->pos.y][(int)game->player->pos.x]);
 		if (keydata.key == MLX_KEY_RIGHT)
-			rotation(game->player, 1);
-		if (keydata.key == MLX_KEY_LEFT)
 			rotation(game->player, -1);
+		if (keydata.key == MLX_KEY_LEFT)
+			rotation(game->player, 1);
 		if (keydata.key == MLX_KEY_W)
 			movement(game, game->player, 1, 'W');
 		if (keydata.key == MLX_KEY_S)
@@ -79,9 +79,9 @@ void	hooks(mlx_key_data_t keydata, void *param)
 			movement(game, game->player, 1, 'D');
 		if (keydata.key == MLX_KEY_A)
 			movement(game, game->player, -1, 'A');
-		printf("new_pos_x = %f, new_pos_y = %f new_map = %c\n",
-			game->player->pos.x, game->player->pos.y,
-			game->map[(int)game->player->pos.y][(int)game->player->pos.x]);
+		// printf("new_pos_x = %f, new_pos_y = %f new_map = %c\n",
+		// 	game->player->pos.x, game->player->pos.y,
+		// 	game->map[(int)game->player->pos.y][(int)game->player->pos.x]);
 	}
 	else if (!pressed)
 		stop_player(game->player);

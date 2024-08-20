@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:47:30 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/20 12:01:13 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:44:31 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,12 +196,10 @@ int	movement(t_game *game, t_player *player, int sign, char cross)
 		}
 		if (ft_strchr("AD", cross))
 		{
-			pos->y += (speed * dir->x * sign);
-			pos->x += (speed * dir->y * sign);
+			pos->y += (speed * player->perp.x * sign);
+			pos->x += (speed * player->perp.y * sign);
 		}
 	}
-	printf("dir_x = %f, dir_y = %f, yaw = %f\n", player->dir.x,
-		player->dir.y, player->yaw);
 	return (0);
 }
 
@@ -270,21 +268,26 @@ void	move_pos(t_player *player, char cross, double *move_x, double *move_y)
 
 void	rotation(t_player *player, int dir)
 {
-	dir *= -1;
 	if (dir == 1)
 	{
-		// player->yaw += ROT_SPD;
-		player->yaw += lerp(0, ROT_SPD, 1);
+		player->yaw += ROT_SPD;
+		// player->yaw += lerp(0, ROT_SPD, 1);
 		if (player->yaw >= 360)
 			player->yaw -= 360;
 	}
 	else if (dir == -1)
 	{
-		// player->yaw -= ROT_SPD;
-		player->yaw -= lerp(0, ROT_SPD, 1);
-		if (player->yaw <= 360)
+		player->yaw -= ROT_SPD;
+		// player->yaw -= lerp(0, ROT_SPD, 1);
+		if (player->yaw <= 0)
 			player->yaw += 360;
 	}
 	player->dir.x = cos(to_rad(player->yaw));
 	player->dir.y = -sin(to_rad(player->yaw));
+	player->perp.x = cos(to_rad(player->yaw - 90));
+	player->perp.y = -sin(to_rad(player->yaw - 90));
+	printf("dir_x = %f, dir_y = %f, yaw = %f\n", player->dir.x,
+		player->dir.y, player->yaw);
+	printf("perp_x = %f, perp_y = %f\n", player->perp.x,
+		player->perp.y);
 }

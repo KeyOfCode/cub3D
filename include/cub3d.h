@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:10:57 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/20 10:12:08 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:19:32 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct s_player
 {
 	t_vec2d				pos;
 	t_vec2d				dir;
+	t_vec2d				perp;
 	t_vec2d				fov;
 	t_vec3d				cam;
 	double				yaw;
