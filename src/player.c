@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:47:30 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/20 11:53:54 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:01:13 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,8 +196,8 @@ int	movement(t_game *game, t_player *player, int sign, char cross)
 		}
 		if (ft_strchr("AD", cross))
 		{
-			pos->y += (speed * dir->y * sign);
-			pos->x += (speed * dir->x * sign);
+			pos->y += (speed * dir->x * sign);
+			pos->x += (speed * dir->y * sign);
 		}
 	}
 	printf("dir_x = %f, dir_y = %f, yaw = %f\n", player->dir.x,
