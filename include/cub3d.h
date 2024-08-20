@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:10:57 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/19 14:05:43 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/20 10:12:08 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,20 +91,23 @@ typedef struct s_texture
 	struct s_texture	*next;
 }	t_texture;
 
+struct	s_game;
+
 /** @brief Structure for the player
  * @param pos : position relative to the map.
  * @param direction : (0 left, 1 right)
 */
 typedef struct s_player
 {
-	t_vec2d		pos;
-	t_vec2d		dir;
-	t_vec2d		fov;
-	t_vec3d		cam;
-	double		yaw;
-	double		pitch;
-	t_vec3d		speed;
-	double		rot_spd;
+	t_vec2d				pos;
+	t_vec2d				dir;
+	t_vec2d				fov;
+	t_vec3d				cam;
+	double				yaw;
+	double				pitch;
+	t_vec3d				speed;
+	double				rot_spd;
+	struct s_game		*game;
 }	t_player;
 
 /**

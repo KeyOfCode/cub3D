@@ -80,7 +80,7 @@ static void	ft_dda(t_game *game, t_ray *ray)
 			ray->map.y += ray->step.y;
 			ray->side = 1;
 		}
-		if (game->map[(int)ray->map.y][(int)ray->map.x] > '0')
+		if (game->map[(int)ray->map.y][(int)ray->map.x] == '1')
 		{
 			hit = 1;
 		}

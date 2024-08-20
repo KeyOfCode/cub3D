@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:53:35 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/18 19:19:24 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/20 10:39:22 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int	store_map(t_game *game, t_list *lst)
 	i = 0;
 	while (lst)
 	{
+		// if (ft_strrchr(lst->content, '\n'))
 		game->map[i] = ft_chrrmv(lst->content, '\n');
 		game->map[i][ft_strlen(lst->content) - 1] = '\0';
 		if (!game->map[i])
