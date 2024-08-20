@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 10:21:29 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/20 12:36:33 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:33:14 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,9 @@ void	exit_game(t_game *game)
 	exit(EXIT_SUCCESS);
 }
 
-void	stop_player(t_player *playyer)
+void	stop_player(t_player *player)
 {
-	playyer->speed.x = 0;
-	playyer->speed.y = 0;
+	player->speed = 0.0;
 }
 
 void	hooks(mlx_key_data_t keydata, void *param)
@@ -79,9 +78,9 @@ void	hooks(mlx_key_data_t keydata, void *param)
 			movement(game, game->player, 1, 'D');
 		if (keydata.key == MLX_KEY_A)
 			movement(game, game->player, -1, 'A');
-		// printf("new_pos_x = %f, new_pos_y = %f new_map = %c\n",
-		// 	game->player->pos.x, game->player->pos.y,
-		// 	game->map[(int)game->player->pos.y][(int)game->player->pos.x]);
+		printf("new_pos_x = %f, new_pos_y = %f new_map = %c\n",
+			game->player->pos.x, game->player->pos.y,
+			game->map[(int)game->player->pos.y][(int)game->player->pos.x]);
 	}
 	else if (!pressed)
 		stop_player(game->player);

@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 09:53:40 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/20 10:33:41 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:23:22 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ void	init_player(t_player *player)
 	player->fov.y = 0;
 	player->yaw = 0;
 	player->pitch = 0;
-	player->speed.x = 0;
-	player->speed.y = 0;
-	player->speed.modulo = 0;
+	player->speed = 0;
 	player->rot_spd = ROT_SPD;
 }
 

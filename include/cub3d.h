@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:10:57 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/20 12:19:32 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:23:02 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@
 # define FOV		60
 # define ROT_SPD	5
 // # define ROT_SPD	0.045
-# define SPEED		1
+# define SPEED		5
+# define TOLERANCE	.5
 # define LERP		0.2
 # define SYMBOLS	"01NSEW "
 # define TEX_WIDTH	64
@@ -106,7 +107,7 @@ typedef struct s_player
 	t_vec3d				cam;
 	double				yaw;
 	double				pitch;
-	t_vec3d				speed;
+	double				speed;
 	double				rot_spd;
 	struct s_game		*game;
 }	t_player;
