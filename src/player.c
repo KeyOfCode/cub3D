@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:47:30 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/20 12:49:07 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:00:56 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,22 +196,12 @@ int	movement(t_game *game, t_player *player, int sign, char cross)
 		}
 		if (ft_strchr("AD", cross))
 		{
-			pos->y -= (speed * player->perp.x * sign);
-			pos->x -= (speed * player->perp.y * sign);
+			pos->y += (speed * player->perp.y * sign);
+			pos->x += (speed * player->perp.x * sign);
 		}
 	}
 	return (0);
 }
-
-// ""if (!collision(game, player, sign))
-// 	{
-// 		if (ft_strchr("WS", cross))
-// 			player->pos.y += (player->speed.x * player->dir.y);
-// 		else if (ft_strchr("AD", cross))
-// 			player->pos.x += (player->speed.x * player->dir.x);
-// 	}""
-
-		// pos = (player->speed.modulo);
 		// player->pos.x += (cos(to_rad(pos)) * sign);
 		// player->pos.y += (-sin(to_rad(pos)) * sign);
 // player->pos.x += (player->speed.x * player->dir.x * sign);
@@ -284,8 +274,8 @@ void	rotation(t_player *player, int dir)
 	}
 	player->dir.x = cos(to_rad(player->yaw));
 	player->dir.y = -sin(to_rad(player->yaw));
-	player->perp.x = cos(to_rad(player->yaw - 90));
-	player->perp.y = -sin(to_rad(player->yaw - 90));
+	player->perp.x = cos(to_rad(90 - player->yaw));
+	player->perp.y = sin(to_rad(90 - player->yaw));
 	printf("dir_x = %f, dir_y = %f, yaw = %f\n", player->dir.x,
 		player->dir.y, player->yaw);
 	printf("perp_x = %f, perp_y = %f\n", player->perp.x,
