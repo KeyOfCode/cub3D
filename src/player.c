@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ezhou <ezhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:47:30 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/20 13:35:32 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:39:24 by ezhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,38 @@ int	collision(t_game *game, t_player *player, t_vec2d vector, int sign)
 	return (0);
 }
 
+int	collisionx(t_game *game, t_player *player, t_vec2d vector, int sign)
+{
+	t_vec2d	*pos;
+	float	tol;
+
+	pos = &player->pos;
+	tol = TOLERANCE;
+	if ((vector.x * sign) < 0)
+		tol *= -1;
+	if (game->map
+		[(int)pos->y]
+		[(int)(pos->x
+			+ (vector.x * round(player->speed) * sign) + tol)] == '1')
+		return (1);
+	return (0);
+}
+
+int	collisiony(t_game *game, t_player *player, t_vec2d vector, int sign)
+{
+	t_vec2d	*pos;
+	float	tol;
+
+	pos = &player->pos;
+	tol = TOLERANCE;
+	if ((vector.y * sign) < 0)
+		tol *= -1;
+	if (game->map
+		[(int)(pos->y + (vector.y * round(player->speed) * sign) + tol)]
+		[(int)(pos->x)] == '1')
+		return (1);
+	return (0);
+}
 	// printf("speed_x = %f, speed_y = %f\n",
 	// 	(player->speed), (player->speed.y));
 	// printf("new_map_x = %c\n", game->map
@@ -127,19 +159,21 @@ int	movement(t_game *game, t_player *player, int sign, char cross)
 	pos = &player->pos;
 	dir = &player->dir;
 	speed = player->speed;
-	if (ft_strchr("WS", cross)
-		&& !collision(game, player, player->dir, sign))
-	{
-		pos->y += (speed * dir->y * sign);
-		pos->x += (speed * dir->x * sign);
+	if (ft_strchr("WS", cross))
+    {
+        if (!collisiony(game, player, player->dir, sign))
+            pos->y += (speed * dir->y * sign);
+        if (!collisionx(game, player, player->dir, sign))
+            pos->x += (speed * dir->x * sign);
 
-	}
-	if (ft_strchr("AD", cross)
-		&& !collision(game, player, player->perp, sign))
-	{
-		pos->y += (speed * player->perp.y * sign);
-		pos->x += (speed * player->perp.x * sign);
-	}
+    }
+    if (ft_strchr("AD", cross))
+    {
+        if (!collisiony(game, player, player->perp, sign))
+            pos->y += (speed * player->perp.y * sign);
+        if (!collisionx(game, player, player->perp, sign))
+            pos->x += (speed * player->perp.x * sign);
+    }
 	return (0);
 }
 		// player->pos.x += (cos(to_rad(pos)) * sign);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ezhou <ezhou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 12:12:04 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/19 13:48:56 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:51:23 by ezhou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,6 @@ static void	ft_init_ray(t_ray *ray)
 	ray->draw_end = 0;
 }
 
-static void	ft_clean_image(mlx_image_t *image)
-{
-	int	i;
-
-	i = 0;
-	while (i < (WIDTH * HEIGHT * 4 - 1))
-	{
-		image->pixels[i] = 0;
-		i++;
-	}
-}
-
 static void	set_pixel(uint32_t **pixel_data, t_game *game, int x, int y)
 {
 	int	ceiling;
@@ -69,7 +57,6 @@ static void	ft_render_frame(t_game *game, uint32_t **pixels)
 	int				x;
 	int				y;
 
-	ft_clean_image(game->img);
 	y = 0;
 	while (y < HEIGHT)
 	{
@@ -81,6 +68,19 @@ static void	ft_render_frame(t_game *game, uint32_t **pixels)
 		}
 		y++;
 	}
+}
+
+static void ft_free_pixels(uint32_t **pixel_data)
+{
+	int i;
+
+	i = 0;
+	while (i < HEIGHT)
+	{
+		free(pixel_data[i]);
+		i++;
+	}
+	free(pixel_data);
 }
 
 static uint32_t	**ft_init_pixels(void)
@@ -112,5 +112,6 @@ int	ft_render(t_game *game)
 	ft_init_ray(&ray);
 	ft_raycast(game, &ray, pixel_data);
 	ft_render_frame(game, pixel_data);
+	ft_free_pixels(pixel_data);
 	return (EXIT_SUCCESS);
 }
