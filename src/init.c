@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 09:53:40 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/25 11:24:47 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/30 11:34:58 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	init_player(t_player *player)
 	player->fov.x = 0;
 	player->fov.y = 0;
 	player->yaw = 0;
-	player->pitch = 0;
 	player->speed = 0;
 	player->rot_spd = ROT_SPD;
 }
@@ -84,35 +83,6 @@ void	ft_init_ray(t_ray *ray)
 	ray->draw_start = 0;
 	ray->draw_end = 0;
 }
-/* 
-void ft_print_map(t_game *game)
-{
-	t_texture *tex = game->textures;
-
-	// ft_printf_fd(1, "%s: %s\n", tex->name, tex->path);
-	while (tex)
-	{
-		ft_printf_fd(1, "%s: %s\n", tex->name, tex->path);
-		tex = tex->next;
-	}
-	ft_printf_fd(1, "Floor: ");
-	for (int i = 0; i < 3; i++)
-	{
-		ft_printf_fd(1, "%d, ", game->floor[i]);
-	}
-	ft_putendl_fd("", 2);
-	ft_printf_fd(1, "Ceiling: ");
-	for (int i = 0; i < 3; i++)
-	{
-		ft_printf_fd(1, "%d, ", game->floor[i]);
-	}
-	ft_putendl_fd("", 2);
-	for (int i = 0; i < game->g_height; i++)
-	{
-		ft_printf_fd(1, "[%d]: %s\n", i, game->map[i]);
-	}
-}
- */
 
 int	init_map(int argc, char *argv[], t_game *game)
 {

@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:47:11 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/18 20:02:46 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/30 11:54:02 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,6 @@ int	max_width(int width)
 	return (width);
 }
 
-/* void	skip_spaces(char *str, int *i)
-{
-	while (str[*i] == ' ')
-		*i += 1;
-} */
-
 double	lerp(double start, double end, double rate)
 {
 	return (start * (1.0 - rate) + (end * rate));
@@ -37,13 +31,6 @@ float	to_rad(float degree)
 {
 	return (degree * (M_PI / 180));
 }
-
-/* void	resize_map(t_game *game)
-{
-	if (!(game->max_width * BPX > WIDTH || game->g_height * BPX > HEIGHT))
-		mlx_set_window_size(game->mlx,
-			(game->max_width) * BPX, game->g_height * BPX);
-} */
 
 int	ft_2darr_len(void **arr)
 {

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycast.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/30 12:03:52 by darismen          #+#    #+#             */
+/*   Updated: 2024/08/30 12:04:19 by darismen         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <cub3d.h>
 
 /**
@@ -21,15 +33,6 @@ static void	ft_init_raycast(t_ray *ray, t_player *player, int x)
 	ray->deltadist.x = fabs(1 / ray->dir.x);
 	ray->deltadist.y = fabs(1 / ray->dir.y);
 }
-
-/* 	printf("player dir %f %f\n", player->dir.x, player->dir.y); */
-/* 	printf("player fov %f %f\n", player->fov.x, player->fov.y); */
-/* 	printf("cameraX %f\n", ray->camera_x); */
-/*  printf("%f + %f * %f = %f\n", player->dir.x,
-		player->fov.x, ray->camera_x, ray->dir.x); */
-/* 	printf("player_pos %f %f\n", player->pos.x, player->pos.y);
-	printf("map %f %f\n", ray->map.x, ray->map.y); */
-/* 	printf("deltadist %f %f\n", ray->deltadist.x, ray->deltadist.y); */
 
 static void	ft_set_step_directions(t_ray *ray, t_player *player)
 {
@@ -55,12 +58,6 @@ static void	ft_set_step_directions(t_ray *ray, t_player *player)
 	}
 }
 
-/* 	printf("%f - %f * %f = %f\n", player->pos.x, 
-		ray->map.x, ray->deltadist.x, ray->sidedist.x); */
-/* 	printf("%f\n", ray->sidedist.y); */
-
-/*ray->map x e y son doubles, map son 
-	células del mapa, deberían ser solo ints. Comprobar si falla cambiar eso.*/
 static void	ft_dda(t_game *game, t_ray *ray)
 {
 	int	hit;
@@ -87,14 +84,6 @@ static void	ft_dda(t_game *game, t_ray *ray)
 	}
 }
 
-/* 		ft_printf_fd(2, "map_y %d, map_x %d\n", ray->map.y, ray->map.x); */
-		// ft_printf_fd(2, "player y %d, player x %d\n",
-			// (int)game->player->pos.y, (int)game->player->pos.x);
-			// ft_printf_fd(2, "ft_dda success\n");
-/* 			printf("%f %f\n", ray->sidedist.x, ray->sidedist.y); */
-/* 			printf("%d %d %c\n", (int)ray->map.y,
-	(int)ray->map.x, game->map[(int)ray->map.y][(int)ray->map.x]); */
-
 static void	ft_calculate_line_height(t_ray *ray, t_player *player)
 {
 	if (ray->side)
@@ -114,12 +103,6 @@ static void	ft_calculate_line_height(t_ray *ray, t_player *player)
 		ray->wall_x = player->pos.x + ray->wall_dist * ray->dir.x;
 	ray->wall_x -= floor(ray->wall_x);
 }
-
-/* 	printf("wall_dist: %f\n", ray->wall_dist); */
-/* 	printf("draw_start: %d draw_end: %d\n", ray->draw_start, ray->draw_end); */
-/* 	printf("%d\n", ray->side); */
-/* 	printf("pox.x:%f + wall_dist:%f * dir.x:%f = %f\n", player->pos.x,
-			ray->wall_dist, ray->dir.x, ray->wall_x); */
 
 int	ft_raycast(t_game *game, t_ray *ray, uint32_t **pixel_data)
 {

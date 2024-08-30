@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:10:57 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/30 11:30:23 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/30 11:58:09 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <errno.h>
 # include <stdio.h>
 # include <signal.h>
-// # include <sys/stat.h>
 # include <sys/time.h>
 # include <features.h>
 # define __USE_MISC 1
@@ -34,25 +33,15 @@
 # define HEIGHT 	720
 # define FOV		60
 # define ROT_SPD	5
-// # define ROT_SPD	0.045
 # define SPEED		5
 # define TOLERANCE	.5
 # define LERP		0.2
 # define SYMBOLS	"01NSEW "
 # define TEX_WIDTH	64
 # define TEX_HEIGHT	64
-// # define TEX_WIDTH	683
-// # define TEX_HEIGHT	384
 # define TEX_SIZE	64
 
 # define BPX 64
-
-typedef enum move
-{
-	X,
-	Y,
-	xy
-}	t_move;
 
 typedef enum s_sprites
 {
@@ -62,14 +51,6 @@ typedef enum s_sprites
 	WE,
 	IMG_COUNT
 }	t_sprites;
-
-typedef enum dirs
-{
-	DOWN,
-	RIGHT,
-	UP,
-	LEFT
-}	t_dirs;
 
 /** @brief Structure for texture list
  * @param name 		: texture name.
@@ -85,10 +66,7 @@ typedef struct s_texture
 {
 	char				*name;
 	char				*path;
-	// char				symbol;
-	// int					type;
-	// int					size;
-	// int					nb;
+	int					type;
 	mlx_texture_t		**sprites;
 	struct s_texture	*next;
 }	t_texture;
@@ -105,6 +83,7 @@ typedef struct s_player
 	t_vec2d				dir;
 	t_vec2d				perp;
 	t_vec2d				fov;
+	t_vec3d				cam;
 	double				yaw;
 	double				speed;
 	double				rot_spd;
@@ -144,6 +123,7 @@ typedef struct s_ray
 	int				draw_start;
 	int				draw_end;
 	uint32_t		**pixel_data;
+	mlx_texture_t	*texture;
 }	t_ray;
 
 typedef struct s_rend
@@ -189,14 +169,6 @@ typedef struct s_game
 	t_keys				keys;
 }	t_game;
 
-// typedef enum s_others
-// {
-// 	bg1,
-// 	bg2,
-// 	wall1,
-// 	wall2
-// }	t_others;
-
 void			hooks(mlx_key_data_t keydata, void *param);
 void			ft_cub_error(char *err);
 
@@ -208,7 +180,6 @@ int				parser(t_game *game);
 void			init_player(t_player *player);
 void			init_sprites(t_game *game);
 void			ft_init_ray(t_ray *ray);
-// int				find_player_pos(t_game *game);
 
 /* Textures */
 char			*path_to_sprite(char *sprite_name, int nb);
@@ -219,6 +190,10 @@ void			ft_texture_free(t_texture *texture);
 
 void			hook_register(t_game *game);
 void			exit_game(t_game *game);
+void			press_hooks(mlx_key_data_t keydata, void *param);
+void			release_hooks(mlx_key_data_t keydata, void *param);
+void			exit_game(t_game *game);
+
 
 /* Parsing */
 

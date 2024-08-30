@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:53:35 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/30 11:21:46 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/30 11:53:14 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,6 @@ int	store_texture(t_game *game, t_list *lst)
 	return (1);
 }
 
-	// ft_printf_fd(2, "\tname: %s\n", head->name);
-	// ft_printf_fd(2, "\tpath: %s\n\n", head->path);
-
 int	store_color(int color[4], t_list *lst)
 {
 	int		i;
@@ -101,8 +98,6 @@ int	store_map(t_game *game, t_list *lst)
 	return (1);
 }
 
-		// ft_printf_fd(2, "[%d]: %s\n", i, game->map[i]);
-
 int	parser(t_game *game)
 {
 	int		i;
@@ -111,7 +106,6 @@ int	parser(t_game *game)
 	if (!fill_lst(game))
 		return (0);
 	lst = game->lst_map;
-	// printf("aqui\n");
 	i = -1;
 	while (++i < IMG_COUNT)
 	{
@@ -127,17 +121,3 @@ int	parser(t_game *game)
 		return (0);
 	return (1);
 }
-
-// ft_error("Init Texture lst");
-		// ft_printf_fd(2, "Textures game->map_fd: %d\n", game->map_fd);
-		// ft_printf_fd(2, "Line: %s\n", line);
-		// ft_printf_fd(2, "head: %p\n", head);
-		// ft_printf_fd(2, "line[0]: %c\n", line[0]);
-		// ft_printf_fd(2, "\tname: %s\n", head->name);
-		// ft_printf_fd(2, "\tpath: %s\n\n", head->path);
-
-/* void	free_str(char **str)
-{
-	free(*str);
-	*str = NULL;
-} */
