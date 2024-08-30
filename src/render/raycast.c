@@ -11,7 +11,7 @@
 
 void	ft_init_dirs(t_game *game);
 
-static void	ft_init_ray(t_ray *ray, t_player *player, int x)
+static void	ft_init_raycast(t_ray *ray, t_player *player, int x)
 {
 	ray->camera_x = 2 * x / (double)WIDTH - 1;
 	ray->dir.x = player->dir.x + player->fov.x * ray->camera_x;
@@ -121,7 +121,7 @@ static void	ft_calculate_line_height(t_ray *ray, t_player *player)
 /* 	printf("pox.x:%f + wall_dist:%f * dir.x:%f = %f\n", player->pos.x,
 			ray->wall_dist, ray->dir.x, ray->wall_x); */
 
-int ft_raycast(t_game *game, t_ray *ray, uint32_t **pixel_data)
+int	ft_raycast(t_game *game, t_ray *ray, uint32_t **pixel_data)
 {
 	int		x;
 
@@ -129,7 +129,7 @@ int ft_raycast(t_game *game, t_ray *ray, uint32_t **pixel_data)
 	while (x < WIDTH)
 	{
 		ft_init_dirs(game);
-		ft_init_ray(ray, game->player, x);
+		ft_init_raycast(ray, game->player, x);
 		ft_set_step_directions(ray, game->player);
 		ft_dda(game, ray);
 		ft_calculate_line_height(ray, game->player);

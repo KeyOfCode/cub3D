@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:53:35 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/20 10:39:22 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/30 11:21:46 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,35 +26,6 @@ int	fill_lst(t_game *game)
 		if (game->max_width < 4)
 			return (0);
 		ft_lstadd_back(&(game->lst_map), ft_lstnew(line));
-	}
-	return (1);
-}
-
-int	init_texture_lst(t_game *game)
-{
-	t_texture	*head;
-	char		*line;
-	int			i;
-	int			j;
-	int			stop;
-
-	line = "";
-	j = -1;
-	while (++j < IMG_COUNT)
-	{
-		head = ft_calloc(sizeof(t_texture), 1);
-		line = get_next_line(game->map_fd);
-		i = -1;
-		while (line[++i] != ' ')
-			head->name = ft_substr(line, 0, i + 1);
-		stop = i + 1;
-		while (line[++i] != '\n')
-			head->path = ft_substr(line, stop, i);
-		if (!head)
-			return (0);
-		ft_texture_addback(&(game->textures), head);
-		free(head);
-		free(line);
 	}
 	return (1);
 }
@@ -103,6 +74,7 @@ int	store_color(int color[4], t_list *lst)
 		if (!color[i])
 			color[i] = 0;
 	}
+	ft_2darrfree((void **)values);
 	return (1);
 }
 
@@ -119,7 +91,6 @@ int	store_map(t_game *game, t_list *lst)
 	i = 0;
 	while (lst)
 	{
-		// if (ft_strrchr(lst->content, '\n'))
 		game->map[i] = ft_chrrmv(lst->content, '\n');
 		game->map[i][ft_strlen(lst->content) - 1] = '\0';
 		if (!game->map[i])

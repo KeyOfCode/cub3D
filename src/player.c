@@ -6,38 +6,37 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:47:30 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/20 13:35:32 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/27 12:52:33 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/**
- * @brief Checks if there's a wall in the direction is moving. 
- * If not, update position variable
- * (placed here due to function size issues...)
- * 
- * @param game 
- * @param pos 
- * @param dir 
- * @return int 
- */
-/* int	so_long_wall_collision(t_game *game, int *pos, char dir)
-{
-	if (dir == 'S' && !(game->map[pos[Y] + 1][pos[X]] == '1'))
-		return (pos[Y]++, 0);
-	if (dir == 'W' && !(game->map[pos[Y] - 1][pos[X]] == '1'))
-		return (pos[Y]--, 0);
-	if (dir == 'D' && !(game->map[pos[Y]][pos[X] + 1] == '1'))
-		return (pos[X]++, 0);
-	if (dir == 'A' && !(game->map[pos[Y]][pos[X] - 1] == '1'))
-		return (pos[X]--, 0);
-	return (1);
-} */
+// int	collision(t_game *game, t_player *player, t_vec2d vector, int sign)
+// {
+// 	t_vec2d	*pos;
+// 	float	tol;
 
-double	get_speed(t_player *player, int cross, int sign);
+// 	pos = &player->pos;
+// 	tol = TOLERANCE;
+// 	if ((vector.x * sign) < 0)
+// 		tol *= -1;
+// 	if (game->map
+// 		[(int)pos->y]
+// 		[(int)(pos->x
+// 			+ (vector.x * round(player->speed) * sign) + tol)] == '1')
+// 		return (1);
+// 	tol = TOLERANCE;
+// 	if ((vector.y * sign) < 0)
+// 		tol *= -1;
+// 	if (game->map
+// 		[(int)(pos->y + (vector.y * round(player->speed) * sign) + tol)]
+// 		[(int)(pos->x)] == '1')
+// 		return (1);
+// 	return (0);
+// }
 
-int	collision(t_game *game, t_player *player, t_vec2d vector, int sign)
+int	collisionx(t_game *game, t_player *player, t_vec2d vector, int sign)
 {
 	t_vec2d	*pos;
 	float	tol;
@@ -51,6 +50,15 @@ int	collision(t_game *game, t_player *player, t_vec2d vector, int sign)
 		[(int)(pos->x
 			+ (vector.x * round(player->speed) * sign) + tol)] == '1')
 		return (1);
+	return (0);
+}
+
+int	collisiony(t_game *game, t_player *player, t_vec2d vector, int sign)
+{
+	t_vec2d	*pos;
+	float	tol;
+
+	pos = &player->pos;
 	tol = TOLERANCE;
 	if ((vector.y * sign) < 0)
 		tol *= -1;
@@ -123,22 +131,24 @@ int	movement(t_game *game, t_player *player, int sign, char cross)
 	t_vec2d	*pos;
 	t_vec2d	*dir;
 
-	player->speed = SPEED * game->mlx->delta_time;
+	// player->speed = SPEED * game->mlx->delta_time;
+	player->speed = lerp(player->speed, SPEED, 0.1 * game->mlx->delta_time);
 	pos = &player->pos;
 	dir = &player->dir;
 	speed = player->speed;
-	if (ft_strchr("WS", cross)
-		&& !collision(game, player, player->dir, sign))
+	if (ft_strchr("WS", cross))
 	{
-		pos->y += (speed * dir->y * sign);
-		pos->x += (speed * dir->x * sign);
-
+		if (!collisiony(game, player, player->dir, sign))
+			pos->y += (speed * dir->y * sign);
+		if (!collisionx(game, player, player->dir, sign))
+			pos->x += (speed * dir->x * sign);
 	}
-	if (ft_strchr("AD", cross)
-		&& !collision(game, player, player->perp, sign))
+	if (ft_strchr("AD", cross))
 	{
-		pos->y += (speed * player->perp.y * sign);
-		pos->x += (speed * player->perp.x * sign);
+		if (!collisiony(game, player, player->perp, sign))
+			pos->y += (speed * player->perp.y * sign);
+		if (!collisionx(game, player, player->perp, sign))
+			pos->x += (speed * player->perp.x * sign);
 	}
 	return (0);
 }

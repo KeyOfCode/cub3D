@@ -6,11 +6,13 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 09:53:40 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/20 13:23:22 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/25 11:24:47 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	ft_init_ray(t_ray *ray);
 
 int	init_game(t_game *game)
 {
@@ -28,6 +30,7 @@ int	init_game(t_game *game)
 			puts(mlx_strerror(mlx_errno)), EXIT_FAILURE);
 	game->lst_map = NULL;
 	game->textures = NULL;
+	ft_init_ray(&game->ray);
 	return (1);
 }
 
@@ -61,6 +64,27 @@ void	init_player(t_player *player)
 	player->rot_spd = ROT_SPD;
 }
 
+void	ft_init_ray(t_ray *ray)
+{
+	ray->camera_x = 0;
+	ray->dir.x = 0;
+	ray->dir.y = 0;
+	ray->map.x = 0;
+	ray->map.y = 0;
+	ray->step.x = 0;
+	ray->step.y = 0;
+	ray->sidedist.x = 0;
+	ray->sidedist.y = 0;
+	ray->deltadist.x = 0;
+	ray->deltadist.y = 0;
+	ray->wall_dist = 0;
+	ray->wall_x = 0;
+	ray->side = 0;
+	ray->line_height = 0;
+	ray->draw_start = 0;
+	ray->draw_end = 0;
+}
+/* 
 void ft_print_map(t_game *game)
 {
 	t_texture *tex = game->textures;
@@ -88,6 +112,7 @@ void ft_print_map(t_game *game)
 		ft_printf_fd(1, "[%d]: %s\n", i, game->map[i]);
 	}
 }
+ */
 
 int	init_map(int argc, char *argv[], t_game *game)
 {
@@ -97,7 +122,6 @@ int	init_map(int argc, char *argv[], t_game *game)
 		ft_cub_error("Can't open map.");
 	if (!parser(game))
 		ft_cub_error("Parser failure.");
-	ft_print_map(game);
 	if (!is_enclosed(game))
 		ft_cub_error("Map is not enclosed.");
 	if (!allowed_char(game))
@@ -106,6 +130,8 @@ int	init_map(int argc, char *argv[], t_game *game)
 		ft_cub_error("Missing required characters.");
 	return (1);
 }
+
+	// ft_print_map(game);
 
 /* 
 ft_error("Textures Init");

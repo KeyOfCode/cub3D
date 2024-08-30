@@ -38,7 +38,7 @@ OBJS 		= $(SRCS:.c=.o)
 .c.o:
 	${CC} ${FLAGS} ${HEADERS} -c $< -o ${<:.c=.o}
 
-TEST_TRGT	= maps/map1.cub
+TEST_TRGT	= maps/map2.cub
 
 ################################################################################
 #                                  Makefile  objs                              #

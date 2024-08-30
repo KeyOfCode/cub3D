@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:10:57 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/20 13:23:02 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/30 11:30:23 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <math.h>
 
 # include "vector.h"
+# include "keybinds.h"
 
 # define WIDTH 		1280
 # define HEIGHT 	720
@@ -84,10 +85,10 @@ typedef struct s_texture
 {
 	char				*name;
 	char				*path;
-	char				symbol;
-	int					type;
-	int					size;
-	int					nb;
+	// char				symbol;
+	// int					type;
+	// int					size;
+	// int					nb;
 	mlx_texture_t		**sprites;
 	struct s_texture	*next;
 }	t_texture;
@@ -104,12 +105,9 @@ typedef struct s_player
 	t_vec2d				dir;
 	t_vec2d				perp;
 	t_vec2d				fov;
-	t_vec3d				cam;
 	double				yaw;
-	double				pitch;
 	double				speed;
 	double				rot_spd;
-	struct s_game		*game;
 }	t_player;
 
 /**
@@ -145,7 +143,7 @@ typedef struct s_ray
 	int				line_height;
 	int				draw_start;
 	int				draw_end;
-	mlx_texture_t	*texture;
+	uint32_t		**pixel_data;
 }	t_ray;
 
 typedef struct s_rend
@@ -172,27 +170,23 @@ typedef struct s_rend
  * @param nb_textures	: number of textures.
  * @param textures 	: texture struct pointer
  * @param player 	: *player struct pointer
- * @param ply_pos[2]	: player global position
 */
 typedef struct s_game
 {
 	mlx_t				*mlx;
 	mlx_image_t			*img;
-	int					*buff_tex[IMG_COUNT];
-	char				**map_buff;
 	int					max_width;
 	int					g_height;
 	int					fd;
 	int					map_fd;
 	t_list				*lst_map;
 	char				**map;
-	int					nb_textures;
 	t_texture			*textures;
 	t_player			*player;
-	int					ply_pos[2];
 	int					ceiling[4];
 	int					floor[4];
 	t_ray				ray;
+	t_keys				keys;
 }	t_game;
 
 // typedef enum s_others
@@ -213,6 +207,7 @@ int				init_map(int argc, char *argv[], t_game *game);
 int				parser(t_game *game);
 void			init_player(t_player *player);
 void			init_sprites(t_game *game);
+void			ft_init_ray(t_ray *ray);
 // int				find_player_pos(t_game *game);
 
 /* Textures */
@@ -241,6 +236,7 @@ void			ft_player_init_pos(t_game *game, char dir, int x, int y);
 
 /* Render */
 int				ft_render(t_game *game);
+// uint32_t		**ft_init_pixels(void);
 int				ft_raycast(t_game *game, t_ray *ray, uint32_t **pixel_data);
 void			ft_register_pixels(t_ray *ray, t_game *game,
 					uint32_t **pixel_data, int x);
