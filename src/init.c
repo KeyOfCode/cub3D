@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 09:53:40 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/30 11:34:58 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:36:28 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,35 +84,18 @@ void	ft_init_ray(t_ray *ray)
 	ray->draw_end = 0;
 }
 
-int	init_map(int argc, char *argv[], t_game *game)
+void	init_map(int argc, char *argv[], t_game *game)
 {
 	if (argc != 2)
-		ft_cub_error("Invalid number of arguments");
+		ft_cub_error("Invalid number of arguments", game);
 	if (!open_map(argv[1], game))
-		ft_cub_error("Can't open map.");
+		ft_cub_error("Can't open map.", game);
 	if (!parser(game))
-		ft_cub_error("Parser failure.");
+		return (ft_cub_error("Parser failure.", game));
 	if (!is_enclosed(game))
-		ft_cub_error("Map is not enclosed.");
+		return (ft_cub_error("Map is not enclosed.", game));
 	if (!allowed_char(game))
-		ft_cub_error("Has a character not allowed.");
+		return (ft_cub_error("Has a character not allowed.", game));
 	if (!required_char(game))
-		ft_cub_error("Missing required characters.");
-	return (1);
+		return (ft_cub_error("Missing required characters.", game));
 }
-
-	// ft_print_map(game);
-
-/* 
-ft_error("Textures Init");
-	if (!init_texture_lst(game))
-		ft_cub_error();
-	ft_error("Textures Init Finished");
-	ft_error("Map Init");
-	if (!fill_lst(game))
-		ft_cub_error(3);
-	ft_error("Map Init Finished");
-	ft_error("Convert Map");
-	if (!convert_lst(game))
-		ft_cub_error(3);
- */

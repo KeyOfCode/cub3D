@@ -25,7 +25,7 @@ VAL_FLAGS=	--child-silent-after-fork=yes \
 
 SRC_DIR		= src
 SRCS_LIST	= main.c init.c hooks.c hook_utils.c player.c utils.c time.c\
-				parsing.c parsing2.c sprites.c texture_utils.c\
+				parsing.c parsing2.c parsing3.c sprites.c texture_utils.c\
 				render/color.c render/raycast.c \
 				render/render.c render/render_utils.c \
 				render/textures.c \
@@ -38,7 +38,7 @@ OBJS 		= $(SRCS:.c=.o)
 .c.o:
 	${CC} ${FLAGS} ${HEADERS} -c $< -o ${<:.c=.o}
 
-TEST_TRGT	= maps/map2.cub
+TEST_TRGT	= maps/error_color.cub
 
 ################################################################################
 #                                  Makefile  objs                              #
@@ -88,7 +88,7 @@ exe:
 val: $(OBJS) 
 	@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}valgrind ${CLR_RMV}..."
 	@${CC} ${HEADERS} ${FLAGS} -o val ${OBJS} ${MLX} -Llibft/ -lft
-	$(VALGRIND)  $(VAL_FLAGS) $(TEST_TRGT)
+	$(VALGRIND) $(VAL_FLAGS) $(TEST_TRGT)
 
 debug:	${OBJS} $(LIBFT) ${MLX}
 	@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}debug ${CLR_RMV}..."

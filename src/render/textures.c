@@ -6,13 +6,13 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 10:22:12 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/30 12:04:40 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:38:32 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-mlx_texture_t	*set_texture(t_texture *textures, int symb)
+mlx_texture_t	*set_texture(t_texture *textures, int symb, t_game *game)
 {
 	t_texture	*head;
 
@@ -23,7 +23,7 @@ mlx_texture_t	*set_texture(t_texture *textures, int symb)
 			return (*head->sprites);
 		head = head->next;
 	}
-	return (ft_cub_error("set_texture Failure"), NULL);
+	return (ft_cub_error("set_texture Failure", game), NULL);
 }
 
 static void	ft_get_texture(t_ray *ray, t_game *game)
@@ -34,16 +34,16 @@ static void	ft_get_texture(t_ray *ray, t_game *game)
 	if (ray->side == 0)
 	{
 		if (ray->dir.x < 0)
-			ray->texture = set_texture(textures, WE);
+			ray->texture = set_texture(textures, WE, game);
 		else
-			ray->texture = set_texture(textures, EA);
+			ray->texture = set_texture(textures, EA, game);
 	}
 	else
 	{
 		if (ray->dir.y > 0)
-			ray->texture = set_texture(textures, SO);
+			ray->texture = set_texture(textures, SO, game);
 		else
-			ray->texture = set_texture(textures, NO);
+			ray->texture = set_texture(textures, NO, game);
 	}
 }
 

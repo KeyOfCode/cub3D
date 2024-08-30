@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:53:35 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/30 11:53:14 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:46:20 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 int	fill_lst(t_game *game)
 {
 	char	*line;
+	int		count;
 
 	line = "";
+	count = 0;
 	while (line)
 	{
 		line = get_next_line(game->map_fd);
@@ -24,8 +26,11 @@ int	fill_lst(t_game *game)
 			return (1);
 		game->max_width = max_width((int)ft_strlen(line) - 1);
 		if (game->max_width < 4)
-			return (0);
+			return (free(line), 0);
+		if ((line[0] == '1' || line[0] == ' ') && count < 6)
+			return (free(line), 0);
 		ft_lstadd_back(&(game->lst_map), ft_lstnew(line));
+		count++;
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:54:54 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/30 11:58:37 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:42:42 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	release_hooks(mlx_key_data_t keydata, void *param)
 	stop_player(game->player);
 }
 
-void	ft_free_textures(t_texture *lst)
+void	ft_free_texture_lst(t_texture *lst)
 {
 	t_texture	*current;
 
@@ -69,7 +69,8 @@ void	ft_free_textures(t_texture *lst)
 		current = (lst)->next;
 		free(lst->name);
 		free(lst->path);
-		mlx_delete_texture(lst->sprites[0]);
+		if (lst->sprites)
+			mlx_delete_texture(lst->sprites[0]);
 		free(lst->sprites);
 		free(lst);
 		lst = current;
@@ -79,13 +80,20 @@ void	ft_free_textures(t_texture *lst)
 
 void	exit_game(t_game *game)
 {
-	mlx_close_window(game->mlx);
-	mlx_terminate(game->mlx);
-	ft_2darrfree((void **)game->map);
-	ft_lstclear(&game->lst_map, free);
-	ft_free_textures(game->textures);
-	free(game->player);
-	free(game);
+	if (game)
+	{
+		mlx_close_window(game->mlx);
+		mlx_terminate(game->mlx);
+		if (game->map)
+			ft_2darrfree((void **)game->map);
+		if (game->lst_map)
+			ft_lstclear(&game->lst_map, free);
+		if (game->textures)
+			ft_free_texture_lst(game->textures);
+		if (game->player)
+			free(game->player);
+		free(game);
+	}
 	ft_printf_fd(1, "\nGame Ended succesfully\n");
 	exit(EXIT_SUCCESS);
 }

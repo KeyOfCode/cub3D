@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 22:49:44 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/30 11:48:07 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/30 12:46:14 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,65 +30,13 @@ int	allowed_char(t_game *game)
 	return (1);
 }
 
-/* 	
-	ft_printf_fd(2, "allowed_char\n");
-	ft_printf_fd(2, "game->map[%d][%d] = %c\n", i, j, game->map[i][j]);
- */
-
-// ft_printf_fd(2, "map[%d][%d] == %c\n", row, i, map[row][i]);
-
-int	check_wall(char **map, int row, int i)
-{
-	while (map[row][i])
-	{
-		if (map[row][i] != '1' && map[row][i] != ' ' && map[row][i] != '\n')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-int	is_enclosed(t_game *game)
-{
-	char	**map;
-	char	**split;
-	int		i;
-	int		j;
-
-	map = game->map;
-	i = -1;
-	if (!check_wall(map, 0, 0))
-		return (0);
-	while (map[++i])
-	{
-		split = ft_split(map[i], ' ');
-		j = -1;
-		while (split[++j])
-		{
-			if (split[j][0] != '1' ||
-				split[j][ft_strlen(split[j]) - 1] != '1')
-				return (ft_2darrfree((void **)split), 0);
-		}
-		ft_2darrfree((void **)split);
-	}
-	if (!check_wall(map, i - 1, 0))
-		return (0);
-	return (1);
-}
-
-		// ft_printf_fd(2, "map[%d] == %s\n", i, map[i]);
-			// ft_printf_fd(2, "split[%d] == %s\n", j, split[j]);
-			// ft_printf_fd(2, "split[%d][0] == %c\n", j, split[j][0]);
-			// ft_printf_fd(2, "split[%d][%d] == %c\n", j, len, split[j][len]);
-		// ft_printf_fd(2, "is_enclosed\n");
-
 void	ft_player_init_pos(t_game *game, char dir, int x, int y)
 {
 	t_player	*player;
 
 	player = game->player;
-	player->pos.x = (double)x;
-	player->pos.y = (double)y;
+	player->pos.x = (double)x + 0.5;
+	player->pos.y = (double)y + 0.5;
 	if (dir == 'N')
 		player->yaw = 90;
 	else if (dir == 'E')
@@ -121,5 +69,3 @@ int	required_char(t_game *game)
 		return (0);
 	return (1);
 }
-	// ft_printf_fd(2, " pos x %d, pos y %d\n",
-	// 	(int)game->player->pos.x, (int)game->player->pos.y);

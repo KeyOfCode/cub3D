@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:10:57 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/30 11:58:09 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:35:54 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,12 +170,12 @@ typedef struct s_game
 }	t_game;
 
 void			hooks(mlx_key_data_t keydata, void *param);
-void			ft_cub_error(char *err);
+void			ft_cub_error(char *err, t_game *game);
 
 /* Init */
 
 int				init_game(t_game *game);
-int				init_map(int argc, char *argv[], t_game *game);
+void			init_map(int argc, char *argv[], t_game *game);
 int				parser(t_game *game);
 void			init_player(t_player *player);
 void			init_sprites(t_game *game);
@@ -185,6 +185,7 @@ void			ft_init_ray(t_ray *ray);
 char			*path_to_sprite(char *sprite_name, int nb);
 void			ft_texture_addback(t_texture **lst, t_texture *new);
 void			ft_texture_free(t_texture *texture);
+void			ft_free_texture_lst(t_texture *lst);
 
 /* Hooks */
 
@@ -193,7 +194,6 @@ void			exit_game(t_game *game);
 void			press_hooks(mlx_key_data_t keydata, void *param);
 void			release_hooks(mlx_key_data_t keydata, void *param);
 void			exit_game(t_game *game);
-
 
 /* Parsing */
 

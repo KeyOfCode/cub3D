@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 13:36:17 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/30 11:39:13 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:38:52 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*path_to_sprite(char *sprite_name, int nb)
 * @param	nb_sprite : it points to each frame of their animations.
 * @param	fd : checks if the sprite exists.
 */
-void	load_textures(int nb_sprite, t_texture *textures)
+void	load_textures(int nb_sprite, t_texture *textures, t_game *game)
 {
 	static int	type = -1;
 	int			index;
@@ -46,7 +46,7 @@ void	load_textures(int nb_sprite, t_texture *textures)
 	{
 		fd = open(textures->path, O_RDONLY);
 		if (fd < 0)
-			ft_cub_error("texture failed to load");
+			ft_cub_error("texture failed to load", game);
 		close(fd);
 		textures->sprites[index] = mlx_load_png(textures->path);
 	}
@@ -63,7 +63,7 @@ void	init_sprites(t_game *game)
 	head = game->textures;
 	while (head)
 	{
-		load_textures(1, head);
+		load_textures(1, head, game);
 		head = head->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 10:15:50 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/30 11:16:36 by darismen         ###   ########.fr       */
+/*   Updated: 2024/08/30 13:33:15 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 	system("leaks -q so_long");
 } */
 
-void	ft_cub_error(char *err)
+void	ft_cub_error(char *err, t_game *game)
 {
 	ft_error("Error!");
 	ft_error(err);
+	exit_game(game);
 	exit(EXIT_SUCCESS);
 }
 
