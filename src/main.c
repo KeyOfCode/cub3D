@@ -6,16 +6,11 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 10:15:50 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/30 13:33:15 by darismen         ###   ########.fr       */
+/*   Updated: 2024/09/02 12:09:47 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-/* void leaks()
-{
-	system("leaks -q so_long");
-} */
 
 void	ft_cub_error(char *err, t_game *game)
 {
@@ -49,6 +44,7 @@ int	main(int argc, char **argv)
 	mlx_image_to_window(game->mlx, game->img, 0, 0);
 	mlx_loop_hook(game->mlx, game_loop, game);
 	mlx_loop(game->mlx);
+	exit_game(game);
 	exit(EXIT_SUCCESS);
 }
 

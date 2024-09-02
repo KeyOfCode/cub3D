@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 10:21:29 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/30 11:58:41 by darismen         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:54:27 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,41 +25,34 @@ void	init_keys(t_game *game)
 	game->keys.mouse_x = -1;
 }
 
-void	current_key(void *param)
+void	stop_player(t_player *player)
 {
-	t_game	*game;
-
-	game = param;
-	if (game->keys.w)
-		movement(game, game->player, 1, 'W');
-	if (game->keys.s)
-		movement(game, game->player, -1, 'S');
-	if (game->keys.d)
-		movement(game, game->player, 1, 'D');
-	if (game->keys.a)
-		movement(game, game->player, -1, 'A');
-	if (game->keys.right_arrow)
-		rotation(game->player, -1);
-	if (game->keys.left_arrow)
-		rotation(game->player, 1);
+	player->speed = 0.0;
 }
 
-void	hooks(mlx_key_data_t keydata, void *param)
+void	loop_hooks(void *param)
 {
 	t_game	*game;
-	int		pressed;
 
 	game = param;
-	pressed = (keydata.action != MLX_RELEASE);
-	if (pressed)
-		press_hooks(keydata, game);
-	else
-		release_hooks(keydata, game);
-	current_key(game);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
+		movement(game, game->player, 1, 'W');
+	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
+		movement(game, game->player, -1, 'S');
+	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+		movement(game, game->player, 1, 'D');
+	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+		movement(game, game->player, -1, 'A');
+	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+		rotation(game->player, -1);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+		rotation(game->player, 1);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
+		exit_game(game);
 }
 
 void	hook_register(t_game *game)
 {
 	init_keys(game);
-	mlx_key_hook(game->mlx, &hooks, game);
+	mlx_loop_hook(game->mlx, &loop_hooks, game);
 }

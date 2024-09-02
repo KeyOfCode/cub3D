@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:47:30 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/30 11:56:33 by darismen         ###   ########.fr       */
+/*   Updated: 2024/09/02 12:06:54 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ int	movement(t_game *game, t_player *player, int sign, char cross)
 	t_vec2d	*pos;
 	t_vec2d	*dir;
 
-	player->speed = lerp(player->speed, SPEED, 0.1 * game->mlx->delta_time);
+	if (player->speed < 0.4)
+		player->speed = lerp(player->speed, SPEED, 0.1 * game->mlx->delta_time);
 	pos = &player->pos;
 	dir = &player->dir;
 	speed = player->speed;

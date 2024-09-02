@@ -38,7 +38,7 @@ OBJS 		= $(SRCS:.c=.o)
 .c.o:
 	${CC} ${FLAGS} ${HEADERS} -c $< -o ${<:.c=.o}
 
-TEST_TRGT	= maps/error_color.cub
+TEST_TRGT	= maps/map2.cub
 
 ################################################################################
 #                                  Makefile  objs                              #
@@ -70,6 +70,7 @@ bonus:		all
 clean:
 	@ ${RM} *.o */*.o */*/*.o
 	@rm -rf $(LIBMLX)/build
+	@ ${RM} val
 	@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✔️"
 
 fclean:		clean

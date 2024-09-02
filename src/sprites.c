@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 13:36:17 by darismen          #+#    #+#             */
-/*   Updated: 2024/08/30 13:38:52 by darismen         ###   ########.fr       */
+/*   Updated: 2024/09/02 12:12:07 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,6 @@ void	load_textures(int nb_sprite, t_texture *textures, t_game *game)
 	}
 	textures->type = ++type;
 }
-
-	// ft_printf_fd(2, "texture %s loading\n", textures->name);
-	// ft_printf_fd(2, "path %s \n", textures->path);
 
 void	init_sprites(t_game *game)
 {

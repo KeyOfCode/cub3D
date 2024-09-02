@@ -3,6 +3,7 @@ SO ./textures/wall/SO_0.png
 WE ./textures/wall/WE_0.png
 EA ./textures/wall/EA_0.png
 F 196,74,65
+C 68,133,300
 111111
 100101
 100001
