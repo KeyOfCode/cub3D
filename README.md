@@ -59,6 +59,7 @@ make fclean
 ```
 
 ## Resources
+No AI was used in the creatin of this project.
 
 * [Local implementation of the MLX42 library] (https://github.com/codam-coding-college/MLX42)
 * https://harm-smits.github.io/42docs/projects/cub3d
