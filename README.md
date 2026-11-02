@@ -1,6 +1,6 @@
 > *This project has been created as part of the 42 curriculum by darismen*
 
-# *cube3D*
+# *cub3D*
 
 ## Description
 
@@ -31,8 +31,8 @@ It uses a local implementation of Codam's MLX42 library for ease of cloning. (Se
 Clone the repository and build the project:
 
 ```bash
-git clone <repository-url>
-cd 04_Cub3D
+git clone git@github.com:KeyOfCode/cub3D.git Cub3D
+cd Cub3D
 make exe
 ```
 
@@ -61,4 +61,6 @@ make fclean
 ## Resources
 
 * [Local implementation of the MLX42 library] (https://github.com/codam-coding-college/MLX42)
-*
+* https://harm-smits.github.io/42docs/projects/cub3d
+* https://github.com/MichelleJiam/cub3D
+* https://hackmd.io/@nszl/H1LXByIE2
